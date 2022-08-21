@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ian Snider</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+        integrity="shal256-46ynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous"/>
+
+    </head>
+    <body style="background-color:grey;">
+        <header>
+            <!-- <div class="logo">
+                <img src="img/pixelated_tail.png" alt="">
+            </div> -->
+            <button class="nav-toggle" aria-label="toggle navigtation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="#me" class="nav__link">About Me</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+                    <li class="nav__item"><a href="#" class="nav__link">CV</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Introduction -->
+        <section class="intro" id="home">
+            <h1 class="section__title section__title--intro">
+                Hi, I am <strong>Ian Snider</strong>
+            </h1>
+            <p class="section_subtitle section__title--intro">Physics consultant</p>
+            <img src="img/IMG_1902.JPG" alt="Ian Snider wearing a mask at the MET" width="400">
+        </section>
+
+        <!-- About Me -->
+        <section class="about-me" id="me">
+            <h2 class="section__title section__title--me">About Me</h2>
+            <div class="me"><!-- me -->
+                <div class="bit">
+                    <h3></h3>
+                    <p>I</p>
+                </div><!-- / bit -->
+
+                <div class="bit">
+                    <h3></h3>
+                    <p>am</p>
+                </div><!-- / bit -->
+
+                <div class="bit">
+                    <h3></h3>
+                    <p>awesome</p>
+                </div><!-- / bit -->
+            </div><!-- / me -->
+            
+            <a href="work" class="btn">My Work</a>
+        </section>
+
+        <!-- Projects -->
+        <section class="projects" id="projects">
+
+        </section>
+
+    </body>
+</html>
