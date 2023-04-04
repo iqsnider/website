@@ -4,7 +4,7 @@ h1{
 }
 
 #center {
-  width: 400px; 
+  width: 600px; 
   margin: auto; 
   
   /* Optional Styling */
@@ -12,14 +12,13 @@ h1{
   border-style: solid;
   border-color: #B6C7D6;
   border-radius: 20px;
-  background-color: #EAF0F6;
+  /* background-color: #EAF0F6; */
  
 }
 
 footer{
   text-align: center;
 }
-
 
 body{
     background-color: #ddd4b0;
