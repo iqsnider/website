@@ -1,6 +1,9 @@
+h1 {
+    text-align: center;
+}
+
 body{
     background-color: #ddd4b0;
-    text-align: center;
 }
 
 ul li{
