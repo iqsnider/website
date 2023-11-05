@@ -2,8 +2,16 @@ const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 
+let timerInterval; // Declare a timer interval variable
+let timerStarted = false
+
+
 quoteInputElement.addEventListener('input', () => {
-  startTimer()
+  if (!timerStarted) {
+    // Start the timer when the user starts typing
+    timerInterval = startTimer();
+    timerStarted = true;
+  }
 
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
   const arrayValue = quoteInputElement.value.split('')
@@ -63,6 +71,7 @@ async function renderNewQuote() {
 
   quoteInputElement.value = null
   startTimer()
+  timerStarted = false
 
   nextQuoteButton.disabled = false
 }
