@@ -1,4 +1,3 @@
-//const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
@@ -28,30 +27,37 @@ quoteInputElement.addEventListener('input', () => {
 })
 
 function getRandomQuote() {
-//   return fetch(RANDOM_QUOTE_API_URL)
-//     .then(response => response.json())
-//     .then(data => data.content)
+
+    //random id number from the quote list
+    let id = Math.floor(Math.random()*7002) + 1
+
+    // fetch a quote from the json file
     return fetch('./english.json')
     .then(response => response.json())
-    .then(data => data.quotes[0].text)
+    .then(data => data.quotes[id].text)
 }
 
 async function renderNewQuote() {
+
   const quote = await getRandomQuote()
   quoteDisplayElement.innerHTML = ''
+
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span')
     characterSpan.innerText = character
     quoteDisplayElement.appendChild(characterSpan)
   })
+
   quoteInputElement.value = null
   startTimer()
 }
 
 let startTime
 function startTimer() {
+
   timerElement.innerText = 0
   startTime = new Date()
+  
   setInterval(() => {
     timer.innerText = getTimerTime()
   }, 1000)
