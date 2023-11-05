@@ -33,7 +33,7 @@ quoteInputElement.addEventListener('input', () => {
   })
 
   // when finished typing the quote, clear text
-  if (correct) {
+  if (quoteInputElement.value.length === arrayQuote.length) {
     quoteInputElement.value = ""
 
     // Calculate and display WPM
