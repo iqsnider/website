@@ -8,7 +8,7 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #2A2A2A;
+    background-color: #292929;
   }
   
   body, .quote-input {
@@ -17,7 +17,7 @@
   }
   
   .container {
-    background-color: #99B898;
+    background-color: #292929;
     padding: 1rem;
     border-radius: .5rem;
     width: 700px;
@@ -28,7 +28,7 @@
     position: absolute;
     top: 2rem;
     font-size: 3rem;
-    color: #99B898;
+    color: #99b898;
     font-weight: bold;
   }
   
@@ -36,11 +36,12 @@
     margin-bottom: 1rem;
     margin-left: calc(1rem + 2px);
     margin-right: calc(1rem + 2px);
+    color: #616161;
   }
   
   .quote-input {
     background-color: transparent;
-    border: 2px solid #616161;
+    border: 2px solid #99b898;
     outline: none;
     width: 100%;
     height: 8rem;
@@ -51,25 +52,26 @@
     border-radius: .5rem;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 17pt;
+    color: #8A6D57;
   }
   
   .quote-input:focus {
-    border-color: #FECEA8;
+    border-color: #2a363b;
   }
   
   .correct {
-    color: #FECEA8;
+    color: #fecea8;
   }
   
   .incorrect {
-    color: red;
+    color: #ff6961;
     text-decoration: underline;
   }
 
   .restart-button {
-    background-color: #2A2A2A; /* Green */
+    background-color: #2a363b; /* Green */
   border: none;
-  color: #FECEA8;
+  color: #99b898;
   padding: 7.5px 16px;
   text-align: center;
   text-decoration: none;

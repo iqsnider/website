@@ -46,21 +46,28 @@ quoteInputElement.addEventListener('input', () => {
   }
 })
 
-function getRandomQuote() {
+async function getRandomQuote(maxLength) {
 
-    //random id number from the quote list
-    let id = Math.floor(Math.random()*7002) + 1
+    // Fetch the JSON file containing your quotes
+  const response = await fetch('./english.json');
+  const data = await response.json();
 
-    // fetch a quote from the json file
-    return fetch('./english.json')
-    .then(response => response.json())
-    .then(data => data.quotes[id].text)
+  // Filter quotes based on the length criterion
+  const eligibleQuotes = data.quotes.filter(quote => quote.length < maxLength);
+
+  // If there are eligible quotes, select a random one
+  if (eligibleQuotes.length > 0) {
+    const randomIndex = Math.floor(Math.random() * eligibleQuotes.length);
+    return eligibleQuotes[randomIndex].text;
+  } else {
+    return "No eligible quotes found.";
+  }
 }
 
 // display the quote on the page
 async function renderNewQuote() {
 
-  const quote = await getRandomQuote()
+  const quote = await getRandomQuote(100)
   quoteDisplayElement.innerHTML = ''
 
   quote.split('').forEach(character => {
