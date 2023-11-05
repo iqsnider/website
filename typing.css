@@ -65,3 +65,14 @@
     color: red;
     text-decoration: underline;
   }
+
+  .restart-button {
+    background-color: #2A2A2A; /* Green */
+  border: none;
+  color: #FECEA8;
+  padding: 7.5px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  }

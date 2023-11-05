@@ -23,7 +23,10 @@ quoteInputElement.addEventListener('input', () => {
     }
   })
 
-  if (correct) renderNewQuote()
+  // when finished typing the quote
+  if (correct) {
+    quoteInputElement.value = ""
+  } //clear text
 })
 
 function getRandomQuote() {
@@ -37,6 +40,7 @@ function getRandomQuote() {
     .then(data => data.quotes[id].text)
 }
 
+// display the quote on the page
 async function renderNewQuote() {
 
   const quote = await getRandomQuote()
@@ -50,21 +54,46 @@ async function renderNewQuote() {
 
   quoteInputElement.value = null
   startTimer()
+
+  nextQuoteButton.disabled = false
 }
 
+// timer stuff
 let startTime
 function startTimer() {
 
   timerElement.innerText = 0
   startTime = new Date()
-  
+
   setInterval(() => {
     timer.innerText = getTimerTime()
   }, 1000)
 }
 
+//more timer stuff
 function getTimerTime() {
   return Math.floor((new Date() - startTime) / 1000)
 }
 
-renderNewQuote()
+// wpm stuff
+function getWPM() {
+  let wpm = (allTypedEntries/5 - uncorrectedErrors)/time
+  return wpm
+}
+
+// add call to a new test button
+const nextQuoteButton = document.getElementById('restartButton')
+
+nextQuoteButton.addEventListener('click', () => {
+  renderNewQuote();
+  quoteInputElement.focus()
+})
+
+// Function to initialize the page with an initial quote
+async function initializePage() {
+  renderNewQuote();
+  nextQuoteButton.disabled = true; // Disable the "Next Quote" button initially
+}
+
+// Add an event listener to run the initialization function when the page loads
+document.addEventListener('DOMContentLoaded', initializePage);
