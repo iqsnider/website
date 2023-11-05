@@ -8,7 +8,7 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #1E0555;
+    background-color: #2A2A2A;
   }
   
   body, .quote-input {
@@ -51,11 +51,11 @@
   }
   
   .quote-input:focus {
-    border-color: black;
+    border-color: #FECEA8;
   }
   
   .correct {
-    color: green;
+    color: #FECEA8;
   }
   
   .incorrect {
