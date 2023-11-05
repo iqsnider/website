@@ -3,6 +3,8 @@ const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 
 quoteInputElement.addEventListener('input', () => {
+  startTimer()
+
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
   const arrayValue = quoteInputElement.value.split('')
 
@@ -23,10 +25,17 @@ quoteInputElement.addEventListener('input', () => {
     }
   })
 
-  // when finished typing the quote
+  // when finished typing the quote, clear text
   if (correct) {
     quoteInputElement.value = ""
-  } //clear text
+
+    // Calculate and display WPM
+    const timeElapsed = getTimerTime() // Get the time in seconds
+    const wordsTyped = arrayQuote.length // Count words
+    const wpm = (wordsTyped/5/timeElapsed)*60 // Calculate WPM
+    quoteInputElement.value = `WPM: ${wpm}` // Display WPM
+    
+  }
 })
 
 function getRandomQuote() {
@@ -75,11 +84,7 @@ function getTimerTime() {
   return Math.floor((new Date() - startTime) / 1000)
 }
 
-// wpm stuff
-function getWPM() {
-  let wpm = (allTypedEntries/5 - uncorrectedErrors)/time
-  return wpm
-}
+
 
 // add call to a new test button
 const nextQuoteButton = document.getElementById('restartButton')
