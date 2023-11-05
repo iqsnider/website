@@ -24,13 +24,6 @@
     max-width: 90%;
   }
   
-  .timer {
-    position: absolute;
-    top: 2rem;
-    font-size: 3rem;
-    color: #99b898;
-    font-weight: bold;
-  }
   
   .quote-display {
     margin-bottom: 1rem;

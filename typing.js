@@ -1,6 +1,5 @@
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
-const timerElement = document.getElementById('timer')
 
 let timerInterval; // Declare a timer interval variable
 let timerStarted = false
@@ -87,7 +86,6 @@ async function renderNewQuote() {
 let startTime
 function startTimer() {
 
-  timerElement.innerText = 0
   startTime = new Date()
 
   setInterval(() => {
