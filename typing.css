@@ -10,9 +10,17 @@
     margin: 0;
     background-color: #292929;
   }
+
+  @font-face {
+    font-family: Ibm;
+    font-style: normal;
+    font-weight: 600;
+    font-display: block;
+    src: url("./IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf");
+  }
   
   body, .quote-input {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:Ibm, monospace;
     font-size: 17pt;
   }
   
