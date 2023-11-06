@@ -12,15 +12,15 @@
   }
 
   @font-face {
-    font-family: Ibm;
+    font-family: "Roboto";
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     font-display: block;
-    src: url("./IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf");
+    src: url("./Roboto_Mono/RobotoMono-VariableFont_wght.ttf") format("truetype");
   }
   
   body, .quote-input {
-    font-family:Ibm, monospace;
+    font-family:Roboto, monospace;
     font-size: 17pt;
   }
   
@@ -51,7 +51,7 @@
     padding: .5rem 1rem;
     font-size: 1rem;
     border-radius: .5rem;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:Roboto, monospace;
     font-size: 17pt;
     color: #8A6D57;
   }
