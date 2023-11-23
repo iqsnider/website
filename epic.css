@@ -7,12 +7,10 @@ h1{
   width: 600px; 
   margin: auto; 
   
-  /* Optional Styling */
   padding: 20px;
   border-style: solid;
   border-color: #ba3c3c;
   border-radius: 20px;
-  /* background-color: #EAF0F6; */
  
 }
 
