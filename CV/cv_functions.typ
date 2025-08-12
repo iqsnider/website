@@ -18,5 +18,5 @@
 
 // honors
 #let honor_field(honor, date) = [
-  *#honor* #h(1fr) *#data*
+  *#honor* #h(1fr) #emph(date)
 ]

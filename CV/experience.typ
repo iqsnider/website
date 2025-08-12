@@ -6,6 +6,6 @@
 
 #experience_field("Lawrence Livermore National Laboratory", "Graduate Intern", "Livermore, CA", "June 2025 - present", text[Faculty mentor: Jesse Norris - _Nuclear Criticality Safety Division_])
 
-#experience_field("Brookhaven National Laboratory", "Nuclear Scient Intern", "Upton, NY", "2022 - 2024", text[Faculty mentor: Gustavo Nobre - _National Nuclear Data Center_])
+#experience_field("Brookhaven National Laboratory", "Nuclear Science Intern", "Upton, NY", "2022 - 2024", text[Faculty mentor: Gustavo Nobre - _National Nuclear Data Center_])
 
-#experience_field("Truman State Unviersity", "Student Astronomy Researcher", "Kirksville, MO", "2021 - 2022", text[Faculty mentor: Vayujeet Gokhale - Department of Physics])
+#experience_field("Truman State University", "Student Astronomy Researcher", "Kirksville, MO", "2021 - 2022", text[Faculty mentor: Vayujeet Gokhale - Department of Physics])
