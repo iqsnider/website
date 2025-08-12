@@ -1,5 +1,5 @@
 #let lined_section(header) = [
-  *#upper(header)* #v(-0.9em) #line(length: 100%, stroke: 1.5pt)
+  *#upper(header)* #v(-0.9em) #line(length: 100%, stroke: 0.6pt)
 ]
 
 // eduation
@@ -8,7 +8,8 @@
 ]
 
 // experience
-#let experience_field(institution, title, location, dates, supervisor) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #supervisor
+#let experience_field(institution, title, location, dates, supervisor, list_content) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #supervisor \
+  #list_content
 ]
 
 // activiites
