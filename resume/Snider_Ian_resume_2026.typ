@@ -1,12 +1,11 @@
 #import "@preview/simple-technical-resume:0.1.0": *
 
 // Put your personal information here
-#let name = "Dwight Schrute"
-#let phone = "+1 (123) 456-7890"
-#let email = "dschrute@dundermifflin.com"
-#let github = "dwight-schrute"
-#let linkedin = "dwight-schrute"
-#let personal-site = "dwightschrute.com"
+#let name = "Ian Snider"
+#let phone = "+1 (660) 341-6806"
+#let email = "iqsnider@berkeley.edu"
+#let github = "iqsnider"
+#let personal-site = "iansnider.com"
 
 // Since the following arguments are within the `with` block,
 // you can remove/comment any argument to fallback to the preset value and/or
@@ -21,7 +20,6 @@
   phone: phone,
   email: email,
   website: personal-site,
-  linkedin-user-id: linkedin,
   github-username: github
 )
 
@@ -31,7 +29,7 @@
 
 #custom-title("Education")[
   #education-heading(
-    "Scranton University",                    // institution
+    "University of California, Berkeley",                    // institution
     "Scranton, PA",                           // location
     "Bachelor of Arts",                       // degree
     "Business Administration",                // major
