@@ -30,13 +30,12 @@
 #custom-title("Education")[
   #education-heading(
     "University of California, Berkeley",                    // institution
-    "Scranton, PA",                           // location
-    "Bachelor of Arts",                       // degree
-    "Business Administration",                // major
-    datetime(year: 1992, month: 9, day: 1),   // start-date
-    datetime(year: 1998, month: 4,  day: 1)   // end-date
+    "Berkeley, CA",                           // location
+    "Ph.D. Nuclear Engineering",                       // degree
+    "",   // major
+    datetime(year: 2025, month: 8, day: 20),   // start-date
+    "present"
   )[
-    - Awarded "Most Determined Student" in senior year
   ]
   // More educational qualifications ... 
 ]
