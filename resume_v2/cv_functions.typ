@@ -8,8 +8,7 @@
 ]
 
 // experience
-#let experience_field(institution, title, location, dates, supervisor, list_content) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #supervisor \
-  #list_content
+#let experience_field(institution, title, location, dates, list_content) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #list_content
 ]
 
 // activiites
