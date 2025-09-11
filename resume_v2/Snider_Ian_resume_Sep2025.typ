@@ -7,4 +7,4 @@
 #include "experience.typ"
 #include "skills.typ"
 #include "activities.typ"
-#include "honors.typ"
+// #include "honors.typ"
