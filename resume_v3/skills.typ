@@ -1,0 +1,11 @@
+#import "cv_functions.typ": lined_section
+
+#lined_section("skills")
+
+#list(
+  [*Programming:* Python, Go, C, C++, Bash, Lua, SQL, MATLAB, Mathematica, Octave, LaTeX, Typst, Vimscript],
+  [*Software/Technical:* Simulink, SolidWorks, OpenMC, COG, Pytorch, Scikit-learn, Slurm, Git, Linux, Atmel AVR],
+  [*Physics/engineering:* Autonomous Aerial Vehicle Control, Classical Mechanics, Electrodynamics, Electronics, Vibrations, Quantum Mechanics, Mathematical Physics,  Nuclear Physics, Fluid Mechanics, Solid Mechanics, Acoustics, Materials Science, Thermal Systems, Turbojets, Ramjets],
+  [*Mathematics:* Linear Algebra, ODEs, Computing Structures, Control Systems, Machine Learning, and Optimizations]
+)
+

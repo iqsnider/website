@@ -4,8 +4,8 @@
 #set text(size : 11pt)
 #show link: set text(fill: blue)
 #include "title.typ"
-#include "education.typ"
 #include "experience.typ"
 #include "skills.typ"
 #include "activities.typ"
+#include "education.typ"
 // #include "honors.typ"
