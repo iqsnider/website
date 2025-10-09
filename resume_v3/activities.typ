@@ -1,4 +1,4 @@
-#import "cv_functions.typ": lined_section, activity_field
+#import "cv_functions_industry.typ": lined_section, activity_field
 
 #lined_section("Projects")
 
