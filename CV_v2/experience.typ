@@ -6,15 +6,15 @@
 #experience_field("Lawrence Berkeley National Laboratory", "Lab Affiliate", "Berkeley, CA", "Aug 2025 - present", list([Graduate researcher in the Bay Area Neutron Group studying experimental techniques for indirect cross-section measurement of short-lived nuclei]))
 
 #experience_field("Lawrence Livermore National Laboratory", "Graduate Intern", "Livermore, CA", "June 2025 - present", list(
-  [Developed CRISP (CRItical Simulation Pipeline) for parallelizing jobs from the radiation transport code: COG],
+  [Developed CRISP (CRItical Simulation Pipeline) for parallelizing and distributing jobs from the radiation transport code: COG],
 [Test driven Python development included Poetry, CI/CD, SQLite, MPI, CLI, feature branching, and Sphinx],[Used 2 world-class LLNL HPC clusters #link("https://hpc.llnl.gov/hardware/compute-platforms/dane")[Dane] and #link("https://hpc.llnl.gov/hardware/compute-platforms/ruby%E2%80%94decommissioned")[Ruby] with Slurm sbatch/srun scripts],
   [CRISP sucessfully automated the materials compiling and k#sub[eff] benchmarking of \~3420 ICSBEP critical reactors],
 [Maintainer of the CRISP project])) 
 
 #experience_field("Brookhaven National Laboratory", "Nuclear Science Intern", "Upton, NY", "Summers 2022 - 2024", list(
-  [Developed BRR (Bayesian Resonance Reclassifier) for resonance reclassification on National Nuclear Data Center clusters], 
+  [Developed BRR (Bayesian Resonance Reclassifier) for resonance reclassification on the National Nuclear Data Center (NNDC) HPC clusters], 
   [Applied machine learning using Scikit-learn and Pytorch to classify resonance spin-group assignments for capture cross-sections of In-115, Pb-206, and U-238],
-  [Used Random Matrix Theory and nuclear data to create synthetic training sets],
-  [Used the neutron transport code OpenMC to perform perturbative sensitivity analyses of the thermal 1/$v$ neutron capture cross-sections for critical reactors on Gd-155, 157 and U-235, 238]))
+  [Used Random Matrix Theory and nuclear data for finding and scaling eigenvalues from reaction Hamiltonians to build synthetic training sets],
+  [Used the neutron transport code OpenMC and NNDC clusters to parallel process perturbative sensitivity analyses of the thermal 1/$v$ neutron capture cross-sections for critical reactors]))
 
 #experience_field("Truman State University", "Student Astronomy Researcher", "Kirksville, MO", "2021 - 2022", list([Calculated trajectories for \~3000 Starlink satellites to optimize telescope viewing plans and developed a GUI]))
