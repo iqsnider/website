@@ -2,7 +2,7 @@
 
 #lined_section("experience")
 
-#experience_field("Lawrence Berkeley National Laboratory", "Lab Affiliate", "Berkeley, CA", "Aug 2025 - present", list([Developed a Monte Carlo simulation to optimize sensor timing cycles for event coincidence detection],[Studied primary gamma extraction from the Oslo Matrix]))
+#experience_field("Lawrence Berkeley National Laboratory", "Lab Affiliate", "Berkeley, CA", "Aug 2025 - Dec 2025", list([Developed a Monte Carlo simulation to optimize sensor timing cycles for event coincidence detection],[Studied detector unfolding and primary gamma extraction from the Oslo Matrix]))
 
 #experience_field("Lawrence Livermore National Laboratory", "Graduate Intern", "Livermore, CA", "June 2025 - present", list(
   [Developed CRISP (Compute & Resource Intensive Simulation Pipeline), a Python tool for parallelizing and distributing high-performance computing (HPC) jobs],
