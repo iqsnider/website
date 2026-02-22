@@ -41,7 +41,7 @@
     }
 
     /* =========================
-       BACKDROP: grid + wiring (NO gradients)
+       BACKDROP: grid + wiring (keep as-is)
     ========================== */
     .backdrop{
       position: fixed;
@@ -49,14 +49,12 @@
       z-index: -2;
       pointer-events: none;
       background:
-        /* main grid */
         linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 44px 44px;
       opacity: 0.55;
     }
 
-    /* “wiring harness”: crisp orthogonal traces */
     .wires{
       position: fixed;
       inset: 0;
@@ -64,11 +62,9 @@
       pointer-events: none;
       opacity: 0.75;
       background-image:
-        /* horizontal traces */
         linear-gradient(to right, transparent 0 12%, rgba(186,60,60,0.35) 12% 12.2%, transparent 12.2% 100%),
         linear-gradient(to right, transparent 0 63%, rgba(255,255,255,0.12) 63% 63.15%, transparent 63.15% 100%),
         linear-gradient(to right, transparent 0 78%, rgba(253,181,21,0.22) 78% 78.12%, transparent 78.12% 100%),
-        /* vertical traces */
         linear-gradient(to bottom, transparent 0 16%, rgba(255,255,255,0.12) 16% 16.15%, transparent 16.15% 100%),
         linear-gradient(to bottom, transparent 0 54%, rgba(186,60,60,0.30) 54% 54.2%, transparent 54.2% 100%),
         linear-gradient(to bottom, transparent 0 86%, rgba(253,181,21,0.18) 86% 86.12%, transparent 86.12% 100%);
@@ -84,6 +80,28 @@
       max-width: 980px;
       display: grid;
       gap: 1.1rem;
+      position: relative; /* for inter-panel wiring layer */
+      isolation: isolate; /* makes z-index layering predictable */
+    }
+
+    /* This layer draws “wires between panels”.
+       It's UNDER the actual panels, so it only shows in the gaps. */
+    .interconnects{
+      position: absolute;
+      inset: -18px; /* slight bleed so cables can peek around edges */
+      pointer-events: none;
+      z-index: 1;
+    }
+    .interconnects svg{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* All real content sits above the wiring */
+    .header, .panel, footer{
+      position: relative;
+      z-index: 2;
     }
 
     /* =========================
@@ -127,7 +145,6 @@
       align-items: center;
     }
 
-    /* more chips, harder edges */
     .chip{
       font-family: var(--mono);
       font-size: 0.84rem;
@@ -142,7 +159,6 @@
       white-space: nowrap;
       position: relative;
     }
-
     .chip::after{
       content:"";
       position:absolute;
@@ -168,7 +184,7 @@
       position: relative;
     }
 
-    /* hard “bus bars” (no gradients) */
+    /* hard “bus bars” */
     .panel::before{
       content:"";
       position:absolute;
@@ -210,7 +226,6 @@
       letter-spacing: 0.03em;
       font-weight: 800;
     }
-
     .label .id{
       border: 1px solid rgba(255,255,255,0.14);
       padding: 0.25rem 0.45rem;
@@ -225,7 +240,7 @@
     }
 
     /* =========================
-       BIO TEXT (content unchanged)
+       BIO
     ========================== */
     .bio p{
       font-size: 1.08rem;
@@ -234,7 +249,6 @@
     }
     .bio p:last-of-type{ margin-bottom: 0; }
 
-    /* annotation strip: looks like a block diagram */
     .blockline{
       margin: 0.75rem 0 1rem 0;
       border: 1px solid rgba(255,255,255,0.12);
@@ -256,7 +270,6 @@
     }
     .arrow{ opacity: 0.55; }
 
-    /* UC Berkeley highlight (kept) */
     .berkeley-highlight{
       color: var(--gold);
       font-weight: 650;
@@ -268,7 +281,6 @@
       border-bottom: 1px solid var(--gold);
     }
 
-    /* links */
     a{
       color: rgba(240,179,179,0.95);
       text-decoration: none;
@@ -295,7 +307,7 @@
     }
 
     /* =========================
-       LINK RACK (hard edges, “PCB footprints”)
+       LINK RACK
     ========================== */
     .rack{
       border: 1px solid rgba(255,255,255,0.14);
@@ -307,7 +319,6 @@
       position: relative;
     }
 
-    /* “footprint pads” */
     .rack::before{
       content:"";
       position:absolute;
@@ -420,12 +431,36 @@
     }
 
     /* =========================
+       “CLAMPS” / STRAIN RELIEF
+       (makes the cables feel physically mounted)
+    ========================== */
+    .header .clamp, .panel .clamp, .rack .clamp, footer .clamp{
+      position:absolute;
+      width: 20px;
+      height: 7px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      top: -5px;
+      left: 34px;
+      pointer-events:none;
+    }
+    .header .clamp.c2{ left: 84px; }
+    .panel  .clamp.c1{ left: 22px; top: -5px; }
+    .panel  .clamp.c2{ left: 74px; top: -5px; }
+    .rack   .clamp.c1{ left: 18px; top: -5px; }
+    .rack   .clamp.c2{ left: 64px; top: -5px; }
+    footer  .clamp.c1{ left: 40px; top: -5px; }
+    footer  .clamp.c2{ left: 92px; top: -5px; }
+
+    /* =========================
        RESPONSIVE
     ========================== */
     @media (max-width: 900px){
       .panelbody{ grid-template-columns: 1fr; }
       .hud{ justify-content: flex-start; }
       .header{ grid-template-columns: 1fr; }
+      /* interconnect cabling becomes subtle on small screens */
+      .interconnects{ opacity: 0.55; }
     }
   </style>
 </head>
@@ -435,16 +470,77 @@
   <div class="wires"></div>
 
   <div class="main">
+
+    <!-- WIRES BETWEEN PANELS (shows in the gaps) -->
+    <div class="interconnects" aria-hidden="true">
+      <svg viewBox="0 0 1000 1300" preserveAspectRatio="none">
+        <!--
+          RULE: draw cables UNDER panels so they only appear between modules.
+          We fake “bundles” by stacking 3 strokes per run (white + red + gold).
+        -->
+
+        <!-- HEADER -> PANEL (down + small jog) -->
+        <path d="M 520 120 L 520 210 L 505 225 L 505 270"
+              fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
+        <path d="M 514 120 L 514 210 L 500 225 L 500 270"
+              fill="none" stroke="rgba(186,60,60,0.45)" stroke-width="2" stroke-linecap="square"/>
+        <path d="M 526 120 L 526 210 L 510 225 L 510 270"
+              fill="none" stroke="rgba(253,181,21,0.40)" stroke-width="2" stroke-linecap="square"/>
+
+        <!-- PANEL -> RACK (right-side harness) -->
+        <path d="M 690 520 L 780 520 L 810 500 L 860 500"
+              fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
+        <path d="M 690 515 L 780 515 L 810 495 L 860 495"
+              fill="none" stroke="rgba(186,60,60,0.40)" stroke-width="2" stroke-linecap="square"/>
+        <path d="M 690 525 L 780 525 L 810 505 L 860 505"
+              fill="none" stroke="rgba(253,181,21,0.34)" stroke-width="2" stroke-linecap="square"/>
+
+        <!-- RACK -> FOOTER (down, then left) -->
+        <path d="M 865 720 L 865 1020 L 650 1020"
+              fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
+        <path d="M 859 720 L 859 1020 L 650 1020"
+              fill="none" stroke="rgba(186,60,60,0.36)" stroke-width="2" stroke-linecap="square"/>
+        <path d="M 871 720 L 871 1020 L 650 1020"
+              fill="none" stroke="rgba(253,181,21,0.30)" stroke-width="2" stroke-linecap="square"/>
+
+        <!-- FOOTER “I/O” ribbon (flat bus) -->
+        <path d="M 260 1120 L 520 1120"
+              fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="12" stroke-linecap="square"/>
+        <path d="M 260 1116 L 520 1116"
+              fill="none" stroke="rgba(186,60,60,0.26)" stroke-width="2" stroke-linecap="square"/>
+        <path d="M 260 1124 L 520 1124"
+              fill="none" stroke="rgba(253,181,21,0.24)" stroke-width="2" stroke-linecap="square"/>
+
+        <!-- Junction nodes (little solder dots / tie points) -->
+        <g opacity="0.75">
+          <rect x="500" y="265" width="10" height="10" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.22)" />
+          <rect x="860" y="490" width="10" height="10" fill="rgba(186,60,60,0.26)" stroke="rgba(186,60,60,0.35)" />
+          <rect x="858" y="710" width="14" height="14" fill="rgba(253,181,21,0.18)" stroke="rgba(253,181,21,0.30)" />
+          <rect x="515" y="1114" width="12" height="12" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.20)" />
+        </g>
+
+        <!-- Little “labels” as hard blocks (no text, just looks like heatshrink) -->
+        <g opacity="0.60">
+          <rect x="530" y="185" width="46" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+          <rect x="744" y="495" width="54" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+          <rect x="800" y="820" width="58" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+        </g>
+      </svg>
+    </div>
+
     <!-- HEADER -->
     <div class="header">
+      <div class="clamp c1"></div>
+      <div class="clamp c2"></div>
+
       <div>
         <h1>Ian Snider</h1>
         <div class="subline">
           <span>nuclear robotics</span><span class="sep">|</span>
           <span>controls</span><span class="sep">|</span>
           <span>estimation</span><span class="sep">|</span>
-          <span>radiation sensing</span><span class="sep">|</span>
-          <span>ℝ³ → ℝ</span>
+          <span>radiation sensing</span><span class="sep"></span>
+          <span>|</span>
         </div>
       </div>
 
@@ -458,6 +554,9 @@
 
     <!-- MAIN PANEL -->
     <div class="panel" id="center">
+      <div class="clamp c1"></div>
+      <div class="clamp c2"></div>
+
       <div class="panelhead">
         <div class="label">
           <b>PROFILE</b>
@@ -473,7 +572,7 @@
       </div>
 
       <div class="panelbody">
-        <!-- LEFT: BIO (UNCHANGED TEXT) -->
+        <!-- LEFT: BIO -->
         <div class="bio">
           <p>
             Hi, my name is Ian Snider.<br>
@@ -506,8 +605,11 @@
           </p>
         </div>
 
-        <!-- RIGHT: LINKS (UNCHANGED) -->
+        <!-- RIGHT: LINKS -->
         <aside class="rack">
+          <div class="clamp c1"></div>
+          <div class="clamp c2"></div>
+
           <div class="racktitle">
             <span>LINKS</span>
             <code>~/</code>
@@ -526,6 +628,9 @@
 
     <!-- FOOTER -->
     <footer id="footer">
+      <div class="clamp c1"></div>
+      <div class="clamp c2"></div>
+
       <div class="footer-gif">
         <img src="https://i.imgur.com/QkBkUkC.gif" alt="pixel animation" />
       </div>
