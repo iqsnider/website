@@ -27,26 +27,36 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
       --radius: 0px; /* hard edges */
+      --pad: clamp(16px, 2.6vw, 28px);
+      --max: 1280px;
     }
 
     body{
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      line-height: 1.6;
-      display: flex;
-      justify-content: center;
-      padding: 2.2rem 1.25rem;
+      line-height: 1.55;
       overflow-x: hidden;
     }
 
+    a{
+      color: rgba(240,179,179,0.95);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    a:hover{
+      color: #ffd9d9;
+      border-bottom: 1px solid var(--red);
+    }
+
     /* =========================
-       BACKDROP: grid + wiring (keep as-is)
+       BACKDROP: grid + wiring (keep vibe)
     ========================== */
     .backdrop{
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -3;
       pointer-events: none;
       background:
         linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -58,7 +68,7 @@
     .wires{
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       pointer-events: none;
       opacity: 0.75;
       background-image:
@@ -73,86 +83,209 @@
     }
 
     /* =========================
-       LAYOUT
+       FULL-WIDTH "BLOCKY" SYSTEM
     ========================== */
-    .main{
+    .band{
       width: 100%;
-      max-width: 980px;
-      display: grid;
-      gap: 1.1rem;
-      position: relative; /* for inter-panel wiring layer */
-      isolation: isolate; /* makes z-index layering predictable */
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      background: rgba(15,17,22,0.92);
+      backdrop-filter: blur(6px);
     }
 
-    /* This layer draws “wires between panels”.
-       It's UNDER the actual panels, so it only shows in the gaps. */
-    .interconnects{
-      position: absolute;
-      inset: -18px; /* slight bleed so cables can peek around edges */
-      pointer-events: none;
-      z-index: 1;
-    }
-    .interconnects svg{
+    .container{
       width: 100%;
-      height: 100%;
-      display: block;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
     }
 
-    /* All real content sits above the wiring */
-    .header, .panel, footer{
-      position: relative;
-      z-index: 2;
+    .ticker{
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+    .ticker .row{
+      display: flex;
+      gap: 2.25rem;
+      white-space: nowrap;
+      padding: 0.7rem 0;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: rgba(234,234,234,0.70);
+      letter-spacing: 0.02em;
+      animation: marquee 28s linear infinite;
+    }
+    .ticker b{ color: rgba(234,234,234,0.92); font-weight: 800; }
+    .dot{ opacity: 0.5; }
+    @keyframes marquee{
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    /* =========================
-       HEADER: hard, technical
-    ========================== */
-    .header{
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      background: rgba(15,17,22,0.92);
+      backdrop-filter: blur(8px);
+    }
+    .nav .inner{
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 1rem;
-      align-items: end;
-      border: 1px solid var(--stroke);
-      background: #0f1116;
-      padding: 1.1rem 1.1rem 0.9rem 1.1rem;
-    }
-
-    h1{
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      font-weight: 750;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      color: #ffffff;
-    }
-
-    .subline{
-      margin-top: 0.45rem;
-      font-family: var(--mono);
-      font-size: 0.92rem;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
       align-items: center;
+      padding: 0.95rem 0;
     }
-    .sep{ opacity: 0.35; }
+    .brand{
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .brand .name{
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      color: rgba(234,234,234,0.92);
+    }
+    .brand .tag{
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: rgba(234,234,234,0.62);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      padding: 0.22rem 0.5rem;
+    }
 
-    .hud{
+    .navlinks{
       display: flex;
       flex-wrap: wrap;
       gap: 0.55rem;
       justify-content: flex-end;
       align-items: center;
     }
-
-    .chip{
+    .pill{
       font-family: var(--mono);
       font-size: 0.84rem;
       color: rgba(234,234,234,0.86);
-      background: #0c0d10;
-      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.16);
       padding: 0.45rem 0.65rem;
-      border-radius: var(--radius);
+      border-radius: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+    .pill:hover{
+      border-color: rgba(186,60,60,0.45);
+      transform: translateY(-1px);
+    }
+    .pin{
+      width: 8px; height: 8px;
+      background: rgba(255,255,255,0.20);
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+    .pin.red{ background: rgba(186,60,60,0.55); border-color: rgba(186,60,60,0.75); }
+    .pin.gold{ background: rgba(253,181,21,0.38); border-color: rgba(253,181,21,0.60); }
+
+    /* =========================
+       BLOCK SECTIONS (full width bands)
+    ========================== */
+    .section{
+      padding: clamp(18px, 3vw, 36px) 0;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 1.1rem;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .block{
+      border: 1px solid var(--stroke2);
+      background: var(--panel);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* chunkier "bus bars" */
+    .block::before{
+      content:"";
+      position:absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 7px;
+      background: var(--red);
+      opacity: 0.9;
+      pointer-events:none;
+    }
+    .block::after{
+      content:"";
+      position:absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: rgba(253,181,21,0.55);
+      pointer-events:none;
+    }
+
+    .blockhead{
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      background: var(--panel2);
+      padding: 1.05rem 1.1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: end;
+    }
+    .kicker{
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 0.82rem;
+      color: rgba(234,234,234,0.70);
+      display: inline-flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .kicker .id{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      padding: 0.22rem 0.45rem;
+      color: rgba(234,234,234,0.62);
+      letter-spacing: 0.04em;
+      text-transform: none;
+      font-weight: 700;
+    }
+
+    .bigtitle{
+      margin-top: 0.55rem;
+      font-size: clamp(2.6rem, 5.8vw, 4.1rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .meta{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .chip{
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: rgba(234,234,234,0.80);
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 0.38rem 0.55rem;
+      border-radius: 0;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -167,93 +300,21 @@
       pointer-events:none;
     }
 
-    .pin{
-      width: 8px; height: 8px;
-      background: rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.22);
-    }
-    .pin.red{ background: rgba(186,60,60,0.55); border-color: rgba(186,60,60,0.75); }
-    .pin.gold{ background: rgba(253,181,21,0.38); border-color: rgba(253,181,21,0.60); }
-
-    /* =========================
-       MAIN PANEL
-    ========================== */
-    .panel{
-      border: 1px solid var(--stroke2);
-      background: var(--panel);
-      position: relative;
-    }
-
-    /* hard “bus bars” */
-    .panel::before{
-      content:"";
-      position:absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 5px;
-      background: var(--red);
-      opacity: 0.9;
-      pointer-events:none;
-    }
-    .panel::after{
-      content:"";
-      position:absolute;
-      right: 0; top: 0; bottom: 0;
-      width: 2px;
-      background: rgba(253,181,21,0.55);
-      pointer-events:none;
-    }
-
-    .panelhead{
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
-      align-items: center;
-      padding: 0.95rem 1.1rem;
-      background: var(--panel2);
-    }
-
-    .label{
-      font-family: var(--mono);
-      font-size: 0.86rem;
-      color: rgba(234,234,234,0.72);
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-    }
-    .label b{
-      color: rgba(234,234,234,0.92);
-      letter-spacing: 0.03em;
-      font-weight: 800;
-    }
-    .label .id{
-      border: 1px solid rgba(255,255,255,0.14);
-      padding: 0.25rem 0.45rem;
-      background: rgba(0,0,0,0.25);
-    }
-
-    .panelbody{
+    .blockbody{
       padding: 1.15rem 1.1rem 1.25rem 1.1rem;
       display: grid;
-      grid-template-columns: 1.35fr 0.75fr;
-      gap: 1.05rem;
+      gap: 1rem;
     }
 
-    /* =========================
-       BIO
-    ========================== */
-    .bio p{
+    .lede{
       font-size: 1.08rem;
       color: rgba(234,234,234,0.88);
-      margin-bottom: 1rem;
     }
-    .bio p:last-of-type{ margin-bottom: 0; }
 
     .blockline{
-      margin: 0.75rem 0 1rem 0;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.18);
-      padding: 0.65rem 0.75rem;
+      padding: 0.75rem 0.85rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.55rem;
@@ -261,7 +322,6 @@
       font-family: var(--mono);
       color: rgba(234,234,234,0.70);
       font-size: 0.88rem;
-      position: relative;
     }
     .blk{
       border: 1px solid rgba(255,255,255,0.14);
@@ -270,9 +330,22 @@
     }
     .arrow{ opacity: 0.55; }
 
+    .callout{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      padding: 0.95rem;
+    }
+    .callout p{
+      color: rgba(234,234,234,0.84);
+      font-size: 1.03rem;
+    }
+
     .berkeley-highlight{
       color: var(--gold);
-      font-weight: 650;
+      font-weight: 700;
       border-bottom: 1px dotted rgba(253, 181, 21, 0.45);
       transition: color 0.18s ease, border-color 0.18s ease;
     }
@@ -281,16 +354,6 @@
       border-bottom: 1px solid var(--gold);
     }
 
-    a{
-      color: rgba(240,179,179,0.95);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: color 0.18s, border-color 0.18s;
-    }
-    a:hover{
-      color: #ffd9d9;
-      border-bottom: 1px solid var(--red);
-    }
     a[href^="mailto"]{
       background: rgba(186, 60, 60, 0.12);
       padding: 0.16rem 0.38rem;
@@ -307,95 +370,158 @@
     }
 
     /* =========================
-       LINK RACK
+       RIGHT COLUMN: link tiles
     ========================== */
-    .rack{
+    .tiles{
+      display: grid;
+      gap: 0.9rem;
+    }
+    .tile{
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(0,0,0,0.18);
-      padding: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
       position: relative;
+      overflow: hidden;
     }
-
-    .rack::before{
+    .tile::before{
       content:"";
       position:absolute;
-      top: 10px; right: 10px;
-      width: 56px; height: 18px;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: rgba(186,60,60,0.80);
+      opacity: 0.9;
+    }
+    .tile .top{
+      padding: 0.85rem 0.9rem 0.7rem 1.0rem;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+      background: rgba(15,17,22,0.55);
+    }
+    .tile .top span{
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: rgba(234,234,234,0.72);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+    .tile .top code{
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: rgba(234,234,234,0.60);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      padding: 0.18rem 0.4rem;
+    }
+
+    .tile .links{
+      display: grid;
+      gap: 0.55rem;
+      padding: 0.85rem 0.9rem 0.95rem 1.0rem;
+      font-size: 1.02rem;
+    }
+    .tile .links a{
+      display: block;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 0.64rem 0.68rem;
+      position: relative;
+    }
+    .tile .links a:hover{
+      border-color: rgba(186,60,60,0.40);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       FULL-WIDTH PROJECT STRIP
+    ========================== */
+    .strip{
+      margin-top: 1.1rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+    }
+    .striphead{
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: rgba(15,17,22,0.55);
+      padding: 0.9rem 1.0rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .striphead .t{
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: rgba(234,234,234,0.72);
+    }
+    .striphead .hint{
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: rgba(234,234,234,0.56);
+    }
+    .cards{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      padding: 0.95rem 1.0rem 1.05rem 1.0rem;
+    }
+    .card{
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 0.9rem;
+      position: relative;
+      min-height: 120px;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      width: 54px;
+      height: 16px;
       border: 1px solid rgba(255,255,255,0.14);
       background:
         repeating-linear-gradient(to right,
           rgba(255,255,255,0.18) 0 5px,
           transparent 5px 9px);
-      opacity: 0.55;
+      opacity: 0.45;
       pointer-events:none;
     }
-
-    .racktitle{
+    .card h3{
       font-family: var(--mono);
-      font-size: 0.84rem;
-      color: rgba(234,234,234,0.72);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: rgba(234,234,234,0.88);
+      margin-bottom: 0.55rem;
     }
-    .racktitle span{
-      color: rgba(234,234,234,0.92);
-      font-weight: 800;
-      letter-spacing: 0.03em;
-    }
-    .racktitle code{
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: rgba(234,234,234,0.62);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 0.18rem 0.4rem;
-      background: rgba(0,0,0,0.2);
-    }
-
-    .link-collection{
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      font-size: 1.03rem;
-    }
-    .link-collection a{
-      display: block;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      padding: 0.62rem 0.65rem;
-      position: relative;
-    }
-    .link-collection a::before{
-      content:"";
-      position:absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      background: rgba(186,60,60,0.80);
-      opacity: 0.9;
-    }
-    .link-collection a:hover{
-      border-color: rgba(186,60,60,0.40);
+    .card p{
+      color: rgba(234,234,234,0.78);
+      font-size: 0.98rem;
     }
 
     /* =========================
-       FOOTER
+       FOOTER (full-width band)
     ========================== */
-    footer{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: #0f1116;
-      padding: 1rem 1.1rem 0.9rem 1.1rem;
-      display: grid;
-      gap: 0.85rem;
-      justify-items: center;
+    .footerband{
+      border-top: 1px solid rgba(255,255,255,0.12);
+      background: rgba(15,17,22,0.92);
+      padding: 1.4rem 0;
     }
-
+    .footergrid{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.1rem;
+      align-items: center;
+    }
     .footer-gif img{
-      max-width: 200px;
+      max-width: 170px;
       border-radius: 0;
       border: 1px solid rgba(255,255,255,0.18);
       background: rgba(0,0,0,0.18);
@@ -405,18 +531,69 @@
     }
     .footer-gif img:hover{ opacity: 1; }
 
-    .typing-link{
-      display: inline-flex;
+.typing-link{
+  gap: 0.55rem;
+  font-family: var(--mono);
+
+  background: linear-gradient(
+    180deg,
+    #103a22 0%,
+    #15502f 50%,
+    #0f331f 100%
+  );
+
+  color: #7CFF9E;
+  border: 2px solid rgba(124,255,158,0.4);
+
+  padding: 0.7rem 1.0rem;
+  border-radius: 2px;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 1;
+
+  text-shadow:
+    0 0 6px rgba(124,255,158,0.9),
+    0 0 14px rgba(124,255,158,0.5);
+
+  box-shadow:
+    inset 0 0 25px rgba(0,255,150,0.15),
+    0 0 12px rgba(0,255,150,0.35);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Visible CRT scanlines */
+.typing-link::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 120, 0.08) 0px,
+    rgba(0, 255, 120, 0.08) 2px,
+    rgba(0, 0, 0, 0.15) 3px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  opacity: 0.6;
+
+  animation: scan 0.5s linear infinite;
+}
+
+@keyframes scan {
+  from { transform: translateY(0); }
+  to   { transform: translateY(4px); }
+}
+    .footer-left{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
       align-items: center;
-      gap: 0.55rem;
-      font-family: var(--mono);
-      background: #0c0d10;
-      color: rgba(234,234,234,0.88);
-      border: 1px solid rgba(186,60,60,0.65);
-      padding: 0.6rem 1.0rem;
-      border-radius: 0;
-      text-decoration: none;
-      border-bottom: none;
     }
     .typing-link:hover{
       background: rgba(186,60,60,0.18);
@@ -426,17 +603,16 @@
 
     .copyright{
       font-family: var(--mono);
-      color: rgba(234,234,234,0.45);
-      font-size: 0.85rem;
+      color: rgba(234,234,234,0.48);
+      font-size: 0.86rem;
     }
 
     /* =========================
        “CLAMPS” / STRAIN RELIEF
-       (makes the cables feel physically mounted)
     ========================== */
-    .header .clamp, .panel .clamp, .rack .clamp, footer .clamp{
+    .clamp{
       position:absolute;
-      width: 20px;
+      width: 22px;
       height: 7px;
       background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.22);
@@ -444,23 +620,49 @@
       left: 34px;
       pointer-events:none;
     }
-    .header .clamp.c2{ left: 84px; }
-    .panel  .clamp.c1{ left: 22px; top: -5px; }
-    .panel  .clamp.c2{ left: 74px; top: -5px; }
-    .rack   .clamp.c1{ left: 18px; top: -5px; }
-    .rack   .clamp.c2{ left: 64px; top: -5px; }
-    footer  .clamp.c1{ left: 40px; top: -5px; }
-    footer  .clamp.c2{ left: 92px; top: -5px; }
+    .clamp.c2{ left: 88px; }
+
+    .block .clamp{ left: 22px; }
+    .block .clamp.c2{ left: 78px; }
+
+    .tile .clamp{ left: 18px; }
+    .tile .clamp.c2{ left: 64px; }
+
+    /* =========================
+       WIRES BETWEEN BLOCKS (only in gaps)
+    ========================== */
+    .interconnects{
+      position: absolute;
+      inset: -18px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+    }
+    .interconnects svg{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .block, .tile, .strip{
+      position: relative;
+      z-index: 2;
+    }
 
     /* =========================
        RESPONSIVE
     ========================== */
-    @media (max-width: 900px){
-      .panelbody{ grid-template-columns: 1fr; }
-      .hud{ justify-content: flex-start; }
-      .header{ grid-template-columns: 1fr; }
-      /* interconnect cabling becomes subtle on small screens */
-      .interconnects{ opacity: 0.55; }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .meta{ justify-content: flex-start; }
+      .nav .inner{ grid-template-columns: 1fr; }
+      .navlinks{ justify-content: flex-start; }
+      .cards{ grid-template-columns: 1fr; }
+      .footergrid{ grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .ticker .row{ animation: none; }
+      .pill:hover, .tile .links a:hover{ transform: none; }
     }
   </style>
 </head>
@@ -469,174 +671,213 @@
   <div class="backdrop"></div>
   <div class="wires"></div>
 
-  <div class="main">
-
-    <!-- WIRES BETWEEN PANELS (shows in the gaps) -->
-    <div class="interconnects" aria-hidden="true">
-      <svg viewBox="0 0 1000 1300" preserveAspectRatio="none">
-        <!--
-          RULE: draw cables UNDER panels so they only appear between modules.
-          We fake “bundles” by stacking 3 strokes per run (white + red + gold).
-        -->
-
-        <!-- HEADER -> PANEL (down + small jog) -->
-        <path d="M 520 120 L 520 210 L 505 225 L 505 270"
-              fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
-        <path d="M 514 120 L 514 210 L 500 225 L 500 270"
-              fill="none" stroke="rgba(186,60,60,0.45)" stroke-width="2" stroke-linecap="square"/>
-        <path d="M 526 120 L 526 210 L 510 225 L 510 270"
-              fill="none" stroke="rgba(253,181,21,0.40)" stroke-width="2" stroke-linecap="square"/>
-
-        <!-- PANEL -> RACK (right-side harness) -->
-        <path d="M 690 520 L 780 520 L 810 500 L 860 500"
-              fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
-        <path d="M 690 515 L 780 515 L 810 495 L 860 495"
-              fill="none" stroke="rgba(186,60,60,0.40)" stroke-width="2" stroke-linecap="square"/>
-        <path d="M 690 525 L 780 525 L 810 505 L 860 505"
-              fill="none" stroke="rgba(253,181,21,0.34)" stroke-width="2" stroke-linecap="square"/>
-
-        <!-- RACK -> FOOTER (down, then left) -->
-        <path d="M 865 720 L 865 1020 L 650 1020"
-              fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"/>
-        <path d="M 859 720 L 859 1020 L 650 1020"
-              fill="none" stroke="rgba(186,60,60,0.36)" stroke-width="2" stroke-linecap="square"/>
-        <path d="M 871 720 L 871 1020 L 650 1020"
-              fill="none" stroke="rgba(253,181,21,0.30)" stroke-width="2" stroke-linecap="square"/>
-
-        <!-- FOOTER “I/O” ribbon (flat bus) -->
-        <path d="M 260 1120 L 520 1120"
-              fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="12" stroke-linecap="square"/>
-        <path d="M 260 1116 L 520 1116"
-              fill="none" stroke="rgba(186,60,60,0.26)" stroke-width="2" stroke-linecap="square"/>
-        <path d="M 260 1124 L 520 1124"
-              fill="none" stroke="rgba(253,181,21,0.24)" stroke-width="2" stroke-linecap="square"/>
-
-        <!-- Junction nodes (little solder dots / tie points) -->
-        <g opacity="0.75">
-          <rect x="500" y="265" width="10" height="10" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.22)" />
-          <rect x="860" y="490" width="10" height="10" fill="rgba(186,60,60,0.26)" stroke="rgba(186,60,60,0.35)" />
-          <rect x="858" y="710" width="14" height="14" fill="rgba(253,181,21,0.18)" stroke="rgba(253,181,21,0.30)" />
-          <rect x="515" y="1114" width="12" height="12" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.20)" />
-        </g>
-
-        <!-- Little “labels” as hard blocks (no text, just looks like heatshrink) -->
-        <g opacity="0.60">
-          <rect x="530" y="185" width="46" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
-          <rect x="744" y="495" width="54" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
-          <rect x="800" y="820" width="58" height="14" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
-        </g>
-      </svg>
-    </div>
-
-    <!-- HEADER -->
-    <div class="header">
-      <div class="clamp c1"></div>
-      <div class="clamp c2"></div>
-
-      <div>
-        <h1>Ian Snider</h1>
-        <div class="subline">
-          <span>nuclear robotics</span><span class="sep">|</span>
-          <span>controls</span><span class="sep">|</span>
-          <span>estimation</span><span class="sep">|</span>
-          <span>radiation sensing</span><span class="sep"></span>
-          <span>|</span>
-        </div>
-      </div>
-
-      <div class="hud">
-        <div class="chip"><span class="pin red"></span><span>status: online</span></div>
-        <div class="chip"><span class="pin"></span><span>build: stable</span></div>
-        <div class="chip"><span class="pin gold"></span><span>mode: research</span></div>
-        <div class="chip"><span class="pin"></span><span>latency: nominal</span></div>
+  <!-- TOP TICKER (full-width, blocky marquee) -->
+  <div class="band ticker" aria-hidden="true">
+    <div class="container">
+      <!-- duplicate content so marquee can loop nicely -->
+      <div class="row">
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> slung payloads <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN </span>
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> slung payloads <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN vibes</span>
       </div>
     </div>
+  </div>
 
-    <!-- MAIN PANEL -->
-    <div class="panel" id="center">
-      <div class="clamp c1"></div>
-      <div class="clamp c2"></div>
-
-      <div class="panelhead">
-        <div class="label">
-          <b>PROFILE</b>
-          <span class="id">node: /home/ian</span>
-          <span class="id">rev: 1.0</span>
+  <!-- STICKY NAV (full-width, chunky) -->
+  <div class="band nav">
+    <div class="container">
+      <div class="inner">
+        <div class="brand">
+          <div class="name">Ian Snider</div>
+          <div class="tag">radiation robotics</div>
         </div>
 
-        <div class="label" style="justify-content:flex-end;">
-          <span class="id">Σ(signal)</span>
-          <span class="id">ẋ = f(x,u)</span>
-          <span class="id">y = h(x)</span>
+        <div class="navlinks">
+          <a class="pill" href="#about"><span class="pin red"></span><span>about</span></a>
+          <a class="pill" href="#work"><span class="pin"></span><span>work</span></a>
+          <a class="pill" href="#links"><span class="pin gold"></span><span>links</span></a>
+          <a class="pill" href="#contact"><span class="pin"></span><span>contact</span></a>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="panelbody">
-        <!-- LEFT: BIO -->
-        <div class="bio">
-          <p>
-            Hi, my name is Ian Snider.<br>
-            I do robots, not websites.
-          </p>
+  <!-- MAIN CONTENT (full-width sections, centered container) -->
+  <main class="section" id="about">
+    <div class="container">
 
-          <div class="blockline">
-            <span class="blk">u(t)</span>
-            <span class="arrow">→</span>
-            <span class="blk">ẋ = f(x,u)</span>
-            <span class="arrow">→</span>
-            <span class="blk">x(t)</span>
-            <span class="arrow">→</span>
-            <span class="blk">y(t)</span>
-            <span style="opacity:0.55;">|</span>
-            <span>multicopters + sensors</span>
-          </div>
+      <div class="grid">
+        <!-- WIRES BETWEEN BLOCKS (shows in gaps) -->
+        <div class="interconnects" aria-hidden="true">
+          <svg viewBox="0 0 1000 1100" preserveAspectRatio="none">
+            <!-- left block -> right block -->
+            <path d="M 640 190 L 760 190 L 805 230 L 930 230"
+                  fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
+            <path d="M 640 184 L 760 184 L 805 224 L 930 224"
+                  fill="none" stroke="rgba(186,60,60,0.40)" stroke-width="2" stroke-linecap="square"/>
+            <path d="M 640 196 L 760 196 L 805 236 L 930 236"
+                  fill="none" stroke="rgba(253,181,21,0.34)" stroke-width="2" stroke-linecap="square"/>
 
-          <p>
-            I am a PhD student at the
-            <span class="berkeley-highlight" title="Go Bears! 🐻">University of California, Berkeley</span>
-            studying nuclear robotics. I focus on robotics, control systems, and radiation detection.
-            As an undergraduate, I obtained degrees in Physics and Mechanical Engineering.
-          </p>
+            <!-- right block -> strip -->
+            <path d="M 910 520 L 910 780 L 640 780"
+                  fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
+            <path d="M 904 520 L 904 780 L 640 780"
+                  fill="none" stroke="rgba(186,60,60,0.36)" stroke-width="2" stroke-linecap="square"/>
+            <path d="M 916 520 L 916 780 L 640 780"
+                  fill="none" stroke="rgba(253,181,21,0.30)" stroke-width="2" stroke-linecap="square"/>
 
-          <p>
-            If you have any exciting opportunities where these skills might be useful, I can be directly reached at
-            <a href="mailto:iqsnider@berkeley.edu?subject=Project%20inquiry&body=Hello%20Ian,">iqsnider@berkeley.edu</a>.
-            Please include general project or request details.
-          </p>
+            <!-- junction nodes -->
+            <g opacity="0.75">
+              <rect x="928" y="222" width="12" height="12" fill="rgba(186,60,60,0.26)" stroke="rgba(186,60,60,0.35)" />
+              <rect x="902" y="510" width="16" height="16" fill="rgba(253,181,21,0.18)" stroke="rgba(253,181,21,0.30)" />
+              <rect x="636" y="774" width="12" height="12" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.20)" />
+            </g>
+
+            <!-- heatshrink blocks -->
+            <g opacity="0.55">
+              <rect x="748" y="170" width="60" height="16" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+              <rect x="868" y="646" width="62" height="16" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+            </g>
+          </svg>
         </div>
 
-        <!-- RIGHT: LINKS -->
-        <aside class="rack">
-          <div class="clamp c1"></div>
-          <div class="clamp c2"></div>
+        <!-- LEFT: HERO/ABOUT -->
+        <section class="block">
+          <div class="clamp c1 clamp"></div>
+          <div class="clamp c2 clamp"></div>
 
-          <div class="racktitle">
-            <span>LINKS</span>
-            <code>~/</code>
+          <div class="blockhead">
+            <div>
+              <div class="kicker">
+                <span>PROFILE</span>
+                <span class="id">rev: 2.0</span>
+              </div>
+              <h1 class="bigtitle">Robotics</h1>
+            </div>
+
+            <div class="meta">
+              <div class="chip"><span class="pin red"></span><span>status: online</span></div>
+              <div class="chip"><span class="pin"></span><span>build: stable</span></div>
+              <div class="chip"><span class="pin gold"></span><span>mode: research</span></div>
+            </div>
           </div>
 
-          <div class="link-collection">
-            <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">GitHub →</a>
-            <!-- <a href="../resume_v3/Snider_Ian_resume_Jan2026.pdf" target="_blank">Resume (PDF) →</a> -->
-            <a href="../CV_v2/Snider_Ian_CV.pdf" target="_blank" rel="noreferrer">CV (PDF) →</a>
-            <a href="../files/Snider_Ian_ESE4481_Final.pdf" target="_blank" rel="noreferrer">A weird drone control system →</a>
-            <a href="../files/Snider_Ian_ESE441_Case_Study.pdf" target="_blank" rel="noreferrer">Artificial Pancreas →</a>
+          <div class="blockbody">
+            <p class="lede">
+              Hi, my name is Ian Snider. I build multicopter systems for radiation sensing, mapping, and autonomy.
+            </p>
+
+            <!-- <div class="blockline"> -->
+            <!--   <span class="blk">u(t)</span> -->
+            <!--   <span class="arrow">→</span> -->
+            <!--   <span class="blk">ẋ = f(x,u)</span> -->
+            <!--   <span class="arrow">→</span> -->
+            <!--   <span class="blk">x(t)</span> -->
+            <!--   <span class="arrow">→</span> -->
+            <!--   <span class="blk">y(t)</span> -->
+            <!--   <span style="opacity:0.55;">|</span> -->
+            <!--   <span>multicopters + sensors</span> -->
+            <!-- </div> -->
+
+            <div class="callout">
+              <p>
+                PhD student at the
+                <span class="berkeley-highlight" title="Go Bears! 🐻">University of California, Berkeley</span>
+                studying robotics, controls, estimation, and radiation detection.
+              </p>
+              <p>
+                Undergrad: Physics + Mechanical Engineering.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: LINKS TILE -->
+        <aside class="tiles" id="links">
+          <div class="tile">
+            <div class="clamp c1 clamp"></div>
+            <div class="clamp c2 clamp"></div>
+
+            <div class="top">
+              <span>Links</span>
+              <code>~/</code>
+            </div>
+
+            <div class="links">
+              <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">GitHub →</a>
+              <!-- <a href="../resume_v3/Snider_Ian_resume_Jan2026.pdf" target="_blank" rel="noreferrer">Resume (PDF) →</a> -->
+              <a href="../CV_v2/Snider_Ian_CV.pdf" target="_blank" rel="noreferrer">CV (PDF) →</a>
+              <a href="../files/Snider_Ian_ESE4481_Final.pdf" target="_blank" rel="noreferrer">A weird drone control system →</a>
+              <a href="../files/Snider_Ian_ESE441_Case_Study.pdf" target="_blank" rel="noreferrer">Artificial Pancreas →</a>
+            </div>
+          </div>
+
+          <div class="tile" id="contact">
+            <div class="top">
+              <span>Contact</span>
+              <code>mail</code>
+            </div>
+            <div class="links">
+              <a href="mailto:iqsnider@berkeley.edu?subject=Project%20inquiry&body=Hello%20Ian,">
+                iqsnider@berkeley.edu →
+              </a>
+              <!-- <a href="typing.html">typing test→</a> -->
+              <!-- <a href="#work">Selected work ↓</a> -->
+            </div>
           </div>
         </aside>
       </div>
+
+      <!-- <!-- FULL-WIDTH STRIP OF "BLOCKY" CARDS -->
+      <!-- <section class="strip" id="work"> -->
+      <!--   <div class="striphead"> -->
+      <!--     <div class="t">Selected work</div> -->
+      <!--     <div class="hint">chunky tiles · quick scan</div> -->
+      <!--   </div> -->
+      <!---->
+      <!--   <div class="cards"> -->
+      <!--     <article class="card"> -->
+      <!--       <h3>Radiation mapping UAV</h3> -->
+      <!--       <p>Autonomous surveys with gamma payloads, localization workflows, and mapping pipelines.</p> -->
+      <!--     </article> -->
+      <!---->
+      <!--     <article class="card"> -->
+      <!--       <h3>Slung payload dynamics</h3> -->
+      <!--       <p>Modeling + control for multicopters carrying suspended detectors (constraints, tension, stability).</p> -->
+      <!--     </article> -->
+      <!---->
+      <!--     <article class="card"> -->
+      <!--       <h3>State estimation</h3> -->
+      <!--       <p>Filtering and inference for sensor fusion (pose, payload offset, radiation signal interpretation).</p> -->
+      <!--     </article> -->
+      <!--   </div> -->
+      <!-- </section> -->
+
     </div>
+  </main>
 
-    <!-- FOOTER -->
-    <footer id="footer">
-      <div class="clamp c1"></div>
-      <div class="clamp c2"></div>
+  <!-- FOOTER (full-width band) -->
+  <footer class="footerband">
+    <div class="container">
+      <div class="footergrid">
+        <div class="footer-left">
+          <div class="footer-gif">
+            <img src="https://i.imgur.com/QkBkUkC.gif" alt="pixel animation" />
+          </div>
+          <a href="typing.html" class="typing-link">typing test</a>
+          <span class="copyright">© Ian Snider</span>
+        </div>
 
-      <div class="footer-gif">
-        <img src="https://i.imgur.com/QkBkUkC.gif" alt="pixel animation" />
+        <div class="navlinks">
+          <a class="pill" href="#about"><span class="pin"></span><span>top</span></a>
+          <a class="pill" href="#work"><span class="pin red"></span><span>work</span></a>
+          <a class="pill" href="#contact"><span class="pin gold"></span><span>contact</span></a>
+        </div>
       </div>
-      <a href="typing.html" class="typing-link">⌨️ typing</a>
-      <p class="copyright">© Ian Snider – nuclear robotics</p>
-    </footer>
-  </div>
+    </div>
+  </footer>
 </body>
 </html>
