@@ -14,21 +14,30 @@
     html, body { height: 100%; }
 
     :root{
-      --bg: #0e0f12;
-      --panel: #12141a;
-      --panel2: #0f1116;
-      --stroke: rgba(255,255,255,0.14);
-      --stroke2: rgba(255,255,255,0.22);
-      --text: #eaeaea;
-      --muted: rgba(234,234,234,0.68);
-      --muted2: rgba(234,234,234,0.50);
-      --red: #ba3c3c;
-      --gold: #FDB515;
+      /* ===== AGGRESSIVE ARCHITECTURAL RED SHEET ===== */
+      --bg: #c83328;        /* red field */
+      --panel: #d63a2e;     /* panel red */
+      --panel2: #b92e24;    /* header strip red */
+
+      /* ink */
+      --text: #0a0a0a;
+      --muted: rgba(0,0,0,0.68);
+      --muted2: rgba(0,0,0,0.50);
+
+      /* linework */
+      --stroke: rgba(0,0,0,0.28);
+      --stroke2: rgba(0,0,0,0.58);
+
+      /* accents (kept minimal + “ink”) */
+      --red: #0a0a0a;       /* treat as ink now */
+      --gold: #0a0a0a;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
-      --radius: 0px; /* hard edges */
+
+      --radius: 10px;
       --pad: clamp(16px, 2.6vw, 28px);
-      --max: 1280px;
+      --max: 1180px;
     }
 
     body{
@@ -40,56 +49,59 @@
     }
 
     a{
-      color: rgba(240,179,179,0.95);
+      color: rgba(0,0,0,0.92);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: color 0.18s, border-color 0.18s, transform 0.18s;
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+      transition: border-color 0.15s, transform 0.15s, color 0.15s;
     }
     a:hover{
-      color: #ffd9d9;
-      border-bottom: 1px solid var(--red);
+      color: #000;
+      border-bottom-color: rgba(0,0,0,0.95);
     }
 
     /* =========================
-       BACKDROP: grid + wiring (keep vibe)
+       BACKDROP: blueprint grid + datums (NO gradients)
     ========================== */
     .backdrop{
       position: fixed;
       inset: 0;
       z-index: -3;
       pointer-events: none;
+      opacity: 0.80;
       background:
-        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 44px 44px;
-      opacity: 0.55;
+        /* major grid */
+        linear-gradient(to right, rgba(0,0,0,0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.18) 1px, transparent 1px),
+        /* minor grid */
+        linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-size:
+        240px 240px,
+        240px 240px,
+        48px 48px,
+        48px 48px;
     }
 
-    .wires{
+    .datums{
       position: fixed;
       inset: 0;
       z-index: -2;
       pointer-events: none;
-      opacity: 0.75;
-      background-image:
-        linear-gradient(to right, transparent 0 12%, rgba(186,60,60,0.35) 12% 12.2%, transparent 12.2% 100%),
-        linear-gradient(to right, transparent 0 63%, rgba(255,255,255,0.12) 63% 63.15%, transparent 63.15% 100%),
-        linear-gradient(to right, transparent 0 78%, rgba(253,181,21,0.22) 78% 78.12%, transparent 78.12% 100%),
-        linear-gradient(to bottom, transparent 0 16%, rgba(255,255,255,0.12) 16% 16.15%, transparent 16.15% 100%),
-        linear-gradient(to bottom, transparent 0 54%, rgba(186,60,60,0.30) 54% 54.2%, transparent 54.2% 100%),
-        linear-gradient(to bottom, transparent 0 86%, rgba(253,181,21,0.18) 86% 86.12%, transparent 86.12% 100%);
-      background-size: 100% 100%;
-      mix-blend-mode: normal;
+      opacity: 0.85;
+      background:
+        linear-gradient(to right, transparent 0 14%, rgba(0,0,0,0.22) 14% 14.12%, transparent 14.12% 100%),
+        linear-gradient(to right, transparent 0 78%, rgba(0,0,0,0.26) 78% 78.12%, transparent 78.12% 100%),
+        linear-gradient(to bottom, transparent 0 18%, rgba(0,0,0,0.20) 18% 18.12%, transparent 18.12% 100%),
+        linear-gradient(to bottom, transparent 0 68%, rgba(0,0,0,0.18) 68% 68.12%, transparent 68.12% 100%);
     }
 
     /* =========================
-       FULL-WIDTH "BLOCKY" SYSTEM
+       FULL-WIDTH “STRUCTURE”
     ========================== */
     .band{
       width: 100%;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(15,17,22,0.92);
-      backdrop-filter: blur(6px);
+      border-bottom: 2px solid var(--stroke2);
+      background: var(--panel2);
     }
 
     .container{
@@ -99,544 +111,287 @@
       padding: 0 var(--pad);
     }
 
+    /* ticker becomes spec strip */
     .ticker{
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.18);
+      border-bottom: 2px solid var(--stroke2);
+      background: var(--panel2);
       overflow: hidden;
     }
     .ticker .row{
       display: flex;
       gap: 2.25rem;
       white-space: nowrap;
-      padding: 0.7rem 0;
+      padding: 0.65rem 0;
       font-family: var(--mono);
-      font-size: 0.88rem;
-      color: rgba(234,234,234,0.70);
-      letter-spacing: 0.02em;
-      animation: marquee 28s linear infinite;
+      font-size: 0.84rem;
+      color: rgba(0,0,0,0.72);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      animation: marquee 30s linear infinite;
     }
-    .ticker b{ color: rgba(234,234,234,0.92); font-weight: 800; }
-    .dot{ opacity: 0.5; }
+    .ticker b{ color: rgba(0,0,0,0.96); font-weight: 950; }
+    .dot{ opacity: 0.55; }
     @keyframes marquee{
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
 
+    /* nav = ink strip */
     .nav{
       position: sticky;
       top: 0;
       z-index: 50;
-      border-bottom: 1px solid rgba(255,255,255,0.14);
-      background: rgba(15,17,22,0.92);
-      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--stroke2);
+      background: var(--panel2);
     }
     .nav .inner{
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 0.95rem 0;
+      gap: 1rem;
+      padding: 0.9rem 0;
     }
     .brand{
       display: flex;
       align-items: baseline;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
     .brand .name{
       font-family: var(--mono);
-      font-weight: 900;
-      letter-spacing: 0.06em;
+      font-weight: 950;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.95rem;
-      color: rgba(234,234,234,0.92);
+      font-size: 0.90rem;
+      color: rgba(0,0,0,0.95);
     }
     .brand .tag{
       font-family: var(--mono);
-      font-size: 0.85rem;
-      color: rgba(234,234,234,0.62);
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
-      padding: 0.22rem 0.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.75);
+      border: 2px solid rgba(0,0,0,0.55);
+      padding: 0.20rem 0.55rem;
+      border-radius: 999px;
+      background: transparent;
     }
-
-    .navlinks{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      justify-content: flex-end;
-      align-items: center;
-    }
-    .pill{
-      font-family: var(--mono);
-      font-size: 0.84rem;
-      color: rgba(234,234,234,0.86);
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.16);
-      padding: 0.45rem 0.65rem;
-      border-radius: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-    }
-    .pill:hover{
-      border-color: rgba(186,60,60,0.45);
-      transform: translateY(-1px);
-    }
-    .pin{
-      width: 8px; height: 8px;
-      background: rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.22);
-    }
-    .pin.red{ background: rgba(186,60,60,0.55); border-color: rgba(186,60,60,0.75); }
-    .pin.gold{ background: rgba(253,181,21,0.38); border-color: rgba(253,181,21,0.60); }
 
     /* =========================
-       BLOCK SECTIONS (full width bands)
+       MAIN LAYOUT
     ========================== */
     .section{
-      padding: clamp(18px, 3vw, 36px) 0;
+      padding: clamp(18px, 3vw, 34px) 0;
     }
 
     .grid{
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 1.1rem;
+      grid-template-columns: 1.45fr 0.55fr;
+      gap: 1rem;
       position: relative;
       isolation: isolate;
+      align-items: start;
     }
 
-    .block{
-      border: 1px solid var(--stroke2);
+    /* =========================
+       ARCHITECTURAL PANELS
+    ========================== */
+    .block, .tile, .strip{
+      border: 2px solid var(--stroke2);
       background: var(--panel);
+      border-radius: var(--radius);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 0 rgba(0,0,0,0.35);
     }
 
-    /* chunkier "bus bars" */
-    .block::before{
-      content:"";
-      position:absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 7px;
-      background: var(--red);
+    /* corner ticks */
+    .block .ticks, .tile .ticks{
+      position: absolute;
+      inset: 12px;
+      pointer-events: none;
       opacity: 0.9;
-      pointer-events:none;
     }
-    .block::after{
+    .block .ticks::before, .tile .ticks::before{
       content:"";
       position:absolute;
-      right: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: rgba(253,181,21,0.55);
-      pointer-events:none;
+      inset:0;
+      background:
+        linear-gradient(var(--stroke2) 0 0) left top / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left top / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right top / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right top / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left bottom / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left bottom / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right bottom / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right bottom / 2px 18px no-repeat;
     }
+
+    /* remove old rails */
+    .block::before, .block::after, .tile::before{ content: none !important; }
 
     .blockhead{
-      border-bottom: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 2px solid var(--stroke2);
       background: var(--panel2);
-      padding: 1.05rem 1.1rem;
+      padding: 1.0rem 1.1rem;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 1rem;
       align-items: end;
     }
+
     .kicker{
       font-family: var(--mono);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-weight: 900;
-      font-size: 0.82rem;
-      color: rgba(234,234,234,0.70);
+      font-weight: 950;
+      font-size: 0.78rem;
+      color: rgba(0,0,0,0.78);
       display: inline-flex;
-      gap: 0.6rem;
+      gap: 0.65rem;
       align-items: center;
+      padding: 0rem 0rem 0rem 1rem;
     }
     .kicker .id{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.22);
-      padding: 0.22rem 0.45rem;
-      color: rgba(234,234,234,0.62);
-      letter-spacing: 0.04em;
+      border: 2px solid rgba(0,0,0,0.55);
+      padding: 0.14rem 0.5rem;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(0,0,0,0.72);
+      letter-spacing: 0.10em;
+      font-weight: 850;
       text-transform: none;
-      font-weight: 700;
     }
 
     .bigtitle{
-      margin-top: 0.55rem;
-      font-size: clamp(2.6rem, 5.8vw, 4.1rem);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .meta{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: flex-end;
-      align-items: center;
-    }
-    .chip{
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: rgba(234,234,234,0.80);
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.16);
-      padding: 0.38rem 0.55rem;
-      border-radius: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      position: relative;
-    }
-    .chip::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border: 1px solid rgba(255,255,255,0.07);
-      pointer-events:none;
+      padding:0rem 1rem 0rem 1rem;
+      font-size: clamp(2.45rem, 5.2vw, 3.8rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 950;
+      color: #000;
     }
 
     .blockbody{
-      padding: 1.15rem 1.1rem 1.25rem 1.1rem;
+      padding: 2rem;
       display: grid;
       gap: 1rem;
     }
 
     .lede{
       font-size: 1.08rem;
-      color: rgba(234,234,234,0.88);
+      color: rgba(0,0,0,0.88);
     }
-
-    .blockline{
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
-      padding: 0.75rem 0.85rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      align-items: center;
-      font-family: var(--mono);
-      color: rgba(234,234,234,0.70);
-      font-size: 0.88rem;
-    }
-    .blk{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.04);
-      padding: 0.22rem 0.45rem;
-    }
-    .arrow{ opacity: 0.55; }
 
     .callout{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
+      border: 2px solid rgba(0,0,0,0.55);
+      background: transparent;
       padding: 0.95rem;
+      border-radius: calc(var(--radius) - 2px);
+      display: grid;
+      gap: 0.75rem;
     }
     .callout p{
-      color: rgba(234,234,234,0.84);
-      font-size: 1.03rem;
+      color: rgba(0,0,0,0.86);
+      font-size: 1.02rem;
     }
 
     .berkeley-highlight{
-      color: var(--gold);
-      font-weight: 700;
-      border-bottom: 1px dotted rgba(253, 181, 21, 0.45);
-      transition: color 0.18s ease, border-color 0.18s ease;
+      color: #000;
+      font-weight: 900;
+      border-bottom: 1px dashed rgba(0,0,0,0.65);
     }
     .berkeley-highlight:hover{
-      color: #ffc745;
-      border-bottom: 1px solid var(--gold);
-    }
-
-    a[href^="mailto"]{
-      background: rgba(186, 60, 60, 0.12);
-      padding: 0.16rem 0.38rem;
-      border-radius: 0;
-      border: 1px solid rgba(186,60,60,0.40);
-      border-bottom: none;
-      font-weight: 650;
-      white-space: nowrap;
-    }
-    a[href^="mailto"]:hover{
-      background: rgba(186, 60, 60, 0.22);
-      border-bottom: none;
-      color: #fff;
+      border-bottom-style: solid;
     }
 
     /* =========================
-       RIGHT COLUMN: link tiles
+       RIGHT COLUMN: tiles (NO buttony links)
     ========================== */
     .tiles{
       display: grid;
-      gap: 0.9rem;
+      gap: 0.95rem;
     }
-    .tile{
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
-      position: relative;
-      overflow: hidden;
-    }
-    .tile::before{
-      content:"";
-      position:absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 6px;
-      background: rgba(186,60,60,0.80);
-      opacity: 0.9;
-    }
+
     .tile .top{
-      padding: 0.85rem 0.9rem 0.7rem 1.0rem;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
+      padding: 1.5rem 0rem 0.5rem 2rem;
+      border-bottom: 2px solid var(--stroke2);
       display: flex;
       justify-content: space-between;
       gap: 0.75rem;
       align-items: center;
-      background: rgba(15,17,22,0.55);
+      background: var(--panel2);
     }
     .tile .top span{
       font-family: var(--mono);
-      font-size: 0.82rem;
-      color: rgba(234,234,234,0.72);
-      letter-spacing: 0.06em;
+      font-size: 0.76rem;
+      color: rgba(0,0,0,0.78);
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-weight: 900;
+      font-weight: 950;
     }
     .tile .top code{
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: rgba(234,234,234,0.60);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
-      padding: 0.18rem 0.4rem;
+      font-size: 0.74rem;
+      color: rgba(0,0,0,0.72);
+      border: 2px solid rgba(0,0,0,0.55);
+      padding: 0.14rem 0.45rem;
+      border-radius: 999px;
+      background: transparent;
     }
 
     .tile .links{
       display: grid;
-      gap: 0.55rem;
-      padding: 0.85rem 0.9rem 0.95rem 1.0rem;
-      font-size: 1.02rem;
-    }
-    .tile .links a{
-      display: block;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      padding: 0.64rem 0.68rem;
-      position: relative;
-    }
-    .tile .links a:hover{
-      border-color: rgba(186,60,60,0.40);
-      transform: translateY(-1px);
+      gap: 0.15rem;
+      padding: 0.7rem 2.0rem 1.0rem 2.0rem;
+      font-size: 1.0rem;
     }
 
-    /* =========================
-       FULL-WIDTH PROJECT STRIP
-    ========================== */
-    .strip{
-      margin-top: 1.1rem;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
-    }
-    .striphead{
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(15,17,22,0.55);
-      padding: 0.9rem 1.0rem;
+    /* plain rows, no tiles/buttons */
+    .tile .links a{
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+      align-items: baseline;
+      gap: 0.8rem;
+      padding: 0.52rem 0;
+      border: none;
+      background: transparent;
+      transform: none;
+      color: rgba(0,0,0,0.92);
     }
-    .striphead .t{
+    .tile .links a::after{
       font-family: var(--mono);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.82rem;
+      color: rgba(0,0,0,0.55);
+      transition: transform 0.15s, color 0.15s;
+    }
+    .tile .links a:hover::after{
+      color: rgba(0,0,0,0.95);
+      transform: translateX(1px);
+    }
+    .tile .links a:hover{
+      border-bottom: 1px solid rgba(0,0,0,0.85);
+    }
+
+    /* mail link stays tag-like, not button */
+    a[href^="mailto"]{
+      border: 2px solid rgba(0,0,0,0.55);
+      padding: 0.12rem 0.4rem;
+      background: transparent;
       font-weight: 900;
-      color: rgba(234,234,234,0.72);
+      white-space: nowrap;
     }
-    .striphead .hint{
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: rgba(234,234,234,0.56);
-    }
-    .cards{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.9rem;
-      padding: 0.95rem 1.0rem 1.05rem 1.0rem;
-    }
-    .card{
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      padding: 0.9rem;
-      position: relative;
-      min-height: 120px;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      top: 10px;
-      right: 10px;
-      width: 54px;
-      height: 16px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background:
-        repeating-linear-gradient(to right,
-          rgba(255,255,255,0.18) 0 5px,
-          transparent 5px 9px);
-      opacity: 0.45;
-      pointer-events:none;
-    }
-    .card h3{
-      font-family: var(--mono);
-      font-size: 0.92rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 900;
-      color: rgba(234,234,234,0.88);
-      margin-bottom: 0.55rem;
-    }
-    .card p{
-      color: rgba(234,234,234,0.78);
-      font-size: 0.98rem;
+    a[href^="mailto"]:hover{
+      color: #000;
     }
 
     /* =========================
-       FOOTER (full-width band)
-    ========================== */
-    .footerband{
-      border-top: 1px solid rgba(255,255,255,0.12);
-      background: rgba(15,17,22,0.92);
-      padding: 1.4rem 0;
-    }
-    .footergrid{
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1.1rem;
-      align-items: center;
-    }
-    .footer-gif img{
-      max-width: 170px;
-      border-radius: 0;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.18);
-      padding: 8px 10px;
-      opacity: 0.92;
-      transition: opacity 0.15s;
-    }
-    .footer-gif img:hover{ opacity: 1; }
-
-.typing-link{
-  gap: 0.55rem;
-  font-family: var(--mono);
-
-  background: linear-gradient(
-    180deg,
-    #103a22 0%,
-    #15502f 50%,
-    #0f331f 100%
-  );
-
-  color: #7CFF9E;
-  border: 2px solid rgba(124,255,158,0.4);
-
-  padding: 0.7rem 1.0rem;
-  border-radius: 2px;
-  text-decoration: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  line-height: 1;
-
-  text-shadow:
-    0 0 6px rgba(124,255,158,0.9),
-    0 0 14px rgba(124,255,158,0.5);
-
-  box-shadow:
-    inset 0 0 25px rgba(0,255,150,0.15),
-    0 0 12px rgba(0,255,150,0.35);
-
-  position: relative;
-  overflow: hidden;
-}
-
-/* Visible CRT scanlines */
-.typing-link::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 255, 120, 0.08) 0px,
-    rgba(0, 255, 120, 0.08) 2px,
-    rgba(0, 0, 0, 0.15) 3px,
-    rgba(0, 0, 0, 0.15) 4px
-  );
-
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  opacity: 0.6;
-
-  animation: scan 0.5s linear infinite;
-}
-
-@keyframes scan {
-  from { transform: translateY(0); }
-  to   { transform: translateY(4px); }
-}
-    .footer-left{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      align-items: center;
-    }
-    .typing-link:hover{
-      background: rgba(186,60,60,0.18);
-      border-bottom: none;
-      color: #fff;
-    }
-
-    .copyright{
-      font-family: var(--mono);
-      color: rgba(234,234,234,0.48);
-      font-size: 0.86rem;
-    }
-
-    /* =========================
-       “CLAMPS” / STRAIN RELIEF
-    ========================== */
-    .clamp{
-      position:absolute;
-      width: 22px;
-      height: 7px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.22);
-      top: -5px;
-      left: 34px;
-      pointer-events:none;
-    }
-    .clamp.c2{ left: 88px; }
-
-    .block .clamp{ left: 22px; }
-    .block .clamp.c2{ left: 78px; }
-
-    .tile .clamp{ left: 18px; }
-    .tile .clamp.c2{ left: 64px; }
-
-    /* =========================
-       WIRES BETWEEN BLOCKS (only in gaps)
+       INTERCONNECTS (ink lines)
     ========================== */
     .interconnects{
       position: absolute;
       inset: -18px;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.85;
+      opacity: 0.65;
     }
     .interconnects svg{
       width: 100%;
@@ -649,44 +404,117 @@
     }
 
     /* =========================
+       FOOTER
+    ========================== */
+    .footerband{
+      border-top: 2px solid var(--stroke2);
+      background: var(--panel2);
+      padding: 1.25rem 0;
+    }
+    .footergrid{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+    .footer-left{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .footer-gif img{
+      max-width: 165px;
+      border-radius: calc(var(--radius) - 2px);
+      border: 2px solid rgba(0,0,0,0.55);
+      background: transparent;
+      padding: 8px 10px;
+      opacity: 0.92;
+      transition: opacity 0.15s;
+    }
+    .footer-gif img:hover{ opacity: 1; }
+
+    /* keep CRT typing link as-is (your vibe), but remove gradients/glow-heavy hover shifts */
+    .typing-link{
+      font-family: var(--mono);
+      background: transparent;
+      color: #000;
+      border: 2px solid rgba(0,0,0,0.70);
+      padding: 0.62rem 0.9rem;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    /* scanlines are not gradients (repeating lines); keep subtle */
+    .typing-link::after{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0px,
+        rgba(0,0,0,0.08) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+      opacity: 0.55;
+      animation: scan 0.45s linear infinite;
+    }
+    @keyframes scan {
+      from { transform: translateY(0); }
+      to   { transform: translateY(4px); }
+    }
+    .typing-link:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,0,0,0.95);
+      color: #000;
+    }
+
+    .copyright{
+      font-family: var(--mono);
+      color: rgba(0,0,0,0.70);
+      font-size: 0.86rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================
        RESPONSIVE
     ========================== */
     @media (max-width: 980px){
       .grid{ grid-template-columns: 1fr; }
-      .meta{ justify-content: flex-start; }
-      .nav .inner{ grid-template-columns: 1fr; }
-      .navlinks{ justify-content: flex-start; }
-      .cards{ grid-template-columns: 1fr; }
       .footergrid{ grid-template-columns: 1fr; }
+      .nav .inner{ flex-direction: column; align-items: flex-start; }
     }
-
     @media (prefers-reduced-motion: reduce){
       .ticker .row{ animation: none; }
-      .pill:hover, .tile .links a:hover{ transform: none; }
+      .typing-link::after{ animation: none; }
     }
   </style>
 </head>
 
 <body>
   <div class="backdrop"></div>
-  <div class="wires"></div>
+  <div class="datums"></div>
 
-  <!-- TOP TICKER (full-width, blocky marquee) -->
+  <!-- TOP TICKER -->
   <div class="band ticker" aria-hidden="true">
     <div class="container">
-      <!-- duplicate content so marquee can loop nicely -->
       <div class="row">
-        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> slung payloads <span class="dot">·</span> radiation sensing</span>
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
         <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
         <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN </span>
-        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> slung payloads <span class="dot">·</span> radiation sensing</span>
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
         <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
-        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN vibes</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN </span>
       </div>
     </div>
   </div>
 
-  <!-- STICKY NAV (full-width, chunky) -->
+  <!-- STICKY NAV -->
   <div class="band nav">
     <div class="container">
       <div class="inner">
@@ -694,99 +522,49 @@
           <div class="name">Ian Snider</div>
           <div class="tag">radiation robotics</div>
         </div>
-
-        <div class="navlinks">
-          <a class="pill" href="#about"><span class="pin red"></span><span>about</span></a>
-          <a class="pill" href="#work"><span class="pin"></span><span>work</span></a>
-          <a class="pill" href="#links"><span class="pin gold"></span><span>links</span></a>
-          <a class="pill" href="#contact"><span class="pin"></span><span>contact</span></a>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- MAIN CONTENT (full-width sections, centered container) -->
+  <!-- MAIN -->
   <main class="section" id="about">
     <div class="container">
-
       <div class="grid">
-        <!-- WIRES BETWEEN BLOCKS (shows in gaps) -->
+
+        <!-- CONNECTOR LINES -->
         <div class="interconnects" aria-hidden="true">
           <svg viewBox="0 0 1000 1100" preserveAspectRatio="none">
-            <!-- left block -> right block -->
-            <path d="M 640 190 L 760 190 L 805 230 L 930 230"
-                  fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
-            <path d="M 640 184 L 760 184 L 805 224 L 930 224"
-                  fill="none" stroke="rgba(186,60,60,0.40)" stroke-width="2" stroke-linecap="square"/>
-            <path d="M 640 196 L 760 196 L 805 236 L 930 236"
-                  fill="none" stroke="rgba(253,181,21,0.34)" stroke-width="2" stroke-linecap="square"/>
-
-            <!-- right block -> strip -->
-            <path d="M 910 520 L 910 780 L 640 780"
-                  fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
-            <path d="M 904 520 L 904 780 L 640 780"
-                  fill="none" stroke="rgba(186,60,60,0.36)" stroke-width="2" stroke-linecap="square"/>
-            <path d="M 916 520 L 916 780 L 640 780"
-                  fill="none" stroke="rgba(253,181,21,0.30)" stroke-width="2" stroke-linecap="square"/>
-
-            <!-- junction nodes -->
+            <path d="M 645 210 L 770 210 L 812 246 L 934 246"
+                  fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="4" stroke-linecap="round" />
+            <path d="M 922 540 L 922 795 L 650 795"
+                  fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="4" stroke-linecap="round" />
             <g opacity="0.75">
-              <rect x="928" y="222" width="12" height="12" fill="rgba(186,60,60,0.26)" stroke="rgba(186,60,60,0.35)" />
-              <rect x="902" y="510" width="16" height="16" fill="rgba(253,181,21,0.18)" stroke="rgba(253,181,21,0.30)" />
-              <rect x="636" y="774" width="12" height="12" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.20)" />
-            </g>
-
-            <!-- heatshrink blocks -->
-            <g opacity="0.55">
-              <rect x="748" y="170" width="60" height="16" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
-              <rect x="868" y="646" width="62" height="16" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.12)"/>
+              <circle cx="934" cy="246" r="7" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
+              <circle cx="922" cy="540" r="8" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
+              <circle cx="650" cy="795" r="7" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
             </g>
           </svg>
         </div>
 
-        <!-- LEFT: HERO/ABOUT -->
+        <!-- LEFT: ABOUT -->
         <section class="block">
-          <div class="clamp c1 clamp"></div>
-          <div class="clamp c2 clamp"></div>
+          <div class="ticks" aria-hidden="true"></div>
 
           <div class="blockhead">
             <div>
               <div class="kicker">
                 <span>PROFILE</span>
-                <span class="id">rev: 2.0</span>
+                <span class="id">sheet A-01</span>
               </div>
               <h1 class="bigtitle">Robotics</h1>
-            </div>
-
-            <div class="meta">
-              <div class="chip"><span class="pin red"></span><span>status: online</span></div>
-              <div class="chip"><span class="pin"></span><span>build: stable</span></div>
-              <div class="chip"><span class="pin gold"></span><span>mode: research</span></div>
             </div>
           </div>
 
           <div class="blockbody">
-            <p class="lede">
-              Hi, my name is Ian Snider. I build multicopter systems for radiation sensing, mapping, and autonomy.
-            </p>
-
-            <!-- <div class="blockline"> -->
-            <!--   <span class="blk">u(t)</span> -->
-            <!--   <span class="arrow">→</span> -->
-            <!--   <span class="blk">ẋ = f(x,u)</span> -->
-            <!--   <span class="arrow">→</span> -->
-            <!--   <span class="blk">x(t)</span> -->
-            <!--   <span class="arrow">→</span> -->
-            <!--   <span class="blk">y(t)</span> -->
-            <!--   <span style="opacity:0.55;">|</span> -->
-            <!--   <span>multicopters + sensors</span> -->
-            <!-- </div> -->
-
             <div class="callout">
               <p>
-                PhD student at the
-                <span class="berkeley-highlight" title="Go Bears! 🐻">University of California, Berkeley</span>
-                studying robotics, controls, estimation, and radiation detection.
+                Hi, my name is Ian Snider. I am a nuclear engineering PhD student at the
+                <span class="berkeley-highlight" title="Go Bears! 🐻">University of California, Berkeley</span>. I research multicopter systems for radiation mapping, controls, estimation, and autonomy.
               </p>
               <p>
                 Undergrad: Physics + Mechanical Engineering.
@@ -795,71 +573,43 @@
           </div>
         </section>
 
-        <!-- RIGHT: LINKS TILE -->
+        <!-- RIGHT: LINKS -->
         <aside class="tiles" id="links">
           <div class="tile">
-            <div class="clamp c1 clamp"></div>
-            <div class="clamp c2 clamp"></div>
+            <div class="ticks" aria-hidden="true"></div>
 
             <div class="top">
               <span>Links</span>
-              <code>~/</code>
             </div>
 
             <div class="links">
-              <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">GitHub →</a>
-              <!-- <a href="../resume_v3/Snider_Ian_resume_Jan2026.pdf" target="_blank" rel="noreferrer">Resume (PDF) →</a> -->
-              <a href="../CV_v2/Snider_Ian_CV.pdf" target="_blank" rel="noreferrer">CV (PDF) →</a>
-              <a href="../files/Snider_Ian_ESE4481_Final.pdf" target="_blank" rel="noreferrer">A weird drone control system →</a>
-              <a href="../files/Snider_Ian_ESE441_Case_Study.pdf" target="_blank" rel="noreferrer">Artificial Pancreas →</a>
+              <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="../CV_v2/Snider_Ian_CV.pdf" target="_blank" rel="noreferrer">CV (PDF)</a>
+              <a href="../files/Snider_Ian_ESE4481_Final.pdf" target="_blank" rel="noreferrer">A weird drone control system</a>
+              <a href="../files/Snider_Ian_ESE441_Case_Study.pdf" target="_blank" rel="noreferrer">Artificial Pancreas</a>
             </div>
           </div>
 
           <div class="tile" id="contact">
+            <div class="ticks" aria-hidden="true"></div>
+
             <div class="top">
               <span>Contact</span>
-              <code>mail</code>
             </div>
+
             <div class="links">
               <a href="mailto:iqsnider@berkeley.edu?subject=Project%20inquiry&body=Hello%20Ian,">
-                iqsnider@berkeley.edu →
+                iqsnider@berkeley.edu
               </a>
-              <!-- <a href="typing.html">typing test→</a> -->
-              <!-- <a href="#work">Selected work ↓</a> -->
             </div>
           </div>
         </aside>
+
       </div>
-
-      <!-- <!-- FULL-WIDTH STRIP OF "BLOCKY" CARDS -->
-      <!-- <section class="strip" id="work"> -->
-      <!--   <div class="striphead"> -->
-      <!--     <div class="t">Selected work</div> -->
-      <!--     <div class="hint">chunky tiles · quick scan</div> -->
-      <!--   </div> -->
-      <!---->
-      <!--   <div class="cards"> -->
-      <!--     <article class="card"> -->
-      <!--       <h3>Radiation mapping UAV</h3> -->
-      <!--       <p>Autonomous surveys with gamma payloads, localization workflows, and mapping pipelines.</p> -->
-      <!--     </article> -->
-      <!---->
-      <!--     <article class="card"> -->
-      <!--       <h3>Slung payload dynamics</h3> -->
-      <!--       <p>Modeling + control for multicopters carrying suspended detectors (constraints, tension, stability).</p> -->
-      <!--     </article> -->
-      <!---->
-      <!--     <article class="card"> -->
-      <!--       <h3>State estimation</h3> -->
-      <!--       <p>Filtering and inference for sensor fusion (pose, payload offset, radiation signal interpretation).</p> -->
-      <!--     </article> -->
-      <!--   </div> -->
-      <!-- </section> -->
-
     </div>
   </main>
 
-  <!-- FOOTER (full-width band) -->
+  <!-- FOOTER -->
   <footer class="footerband">
     <div class="container">
       <div class="footergrid">
@@ -869,12 +619,6 @@
           </div>
           <a href="typing.html" class="typing-link">typing test</a>
           <span class="copyright">© Ian Snider</span>
-        </div>
-
-        <div class="navlinks">
-          <a class="pill" href="#about"><span class="pin"></span><span>top</span></a>
-          <a class="pill" href="#work"><span class="pin red"></span><span>work</span></a>
-          <a class="pill" href="#contact"><span class="pin gold"></span><span>contact</span></a>
         </div>
       </div>
     </div>
