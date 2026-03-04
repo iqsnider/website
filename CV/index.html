@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ian Snider CV</title>
+  <link rel="icon" type="image/x-icon" href="/img/pixelated_tail.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    :root {
+      --bg: #c83328;
+      --panel: #d63a2e;
+      --panel2: #b92e24;
+      --text: #0a0a0a;
+      --stroke: rgba(0,0,0,0.28);
+      --stroke2: rgba(0,0,0,0.58);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+      --radius: 10px;
+      --pad: clamp(16px, 2.6vw, 28px);
+      --max: 980px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.55;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main { flex: 1; }
+
+    a {
+      color: rgba(0,0,0,0.92);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    a:hover { color: #000; border-bottom-color: rgba(0,0,0,0.95); }
+
+    /* BACKDROP */
+    .backdrop {
+      position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.80;
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.18) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-size: 240px 240px, 240px 240px, 48px 48px, 48px 48px;
+    }
+    .datums {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: 0.85;
+      background:
+        linear-gradient(to right, transparent 0 14%, rgba(0,0,0,0.22) 14% 14.12%, transparent 14.12% 100%),
+        linear-gradient(to right, transparent 0 78%, rgba(0,0,0,0.26) 78% 78.12%, transparent 78.12% 100%),
+        linear-gradient(to bottom, transparent 0 18%, rgba(0,0,0,0.20) 18% 18.12%, transparent 18.12% 100%),
+        linear-gradient(to bottom, transparent 0 68%, rgba(0,0,0,0.18) 68% 68.12%, transparent 68.12% 100%);
+    }
+
+    /* BAND / CONTAINER */
+    .band { width: 100%; border-bottom: 2px solid var(--stroke2); background: var(--panel2); }
+    .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+    /* TICKER */
+    .ticker { overflow: hidden; }
+    .ticker .row {
+      display: flex; gap: 2.25rem; white-space: nowrap; padding: 0.65rem 0;
+      font-family: var(--mono); font-size: 0.84rem; color: rgba(0,0,0,0.72);
+      letter-spacing: 0.10em; text-transform: uppercase;
+      animation: marquee 30s linear infinite;
+    }
+    .ticker b { color: rgba(0,0,0,0.96); font-weight: 950; }
+    .dot { opacity: 0.55; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 50; }
+    .nav .inner {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; padding: 0.9rem 0;
+    }
+    .brand { display: flex; align-items: baseline; gap: 0.85rem; }
+    .brand .name {
+      font-family: var(--mono); font-weight: 950; letter-spacing: 0.14em;
+      text-transform: uppercase; font-size: 0.90rem; color: rgba(0,0,0,0.95);
+    }
+    .brand .tag {
+      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.10em;
+      text-transform: uppercase; color: rgba(0,0,0,0.75);
+      border: 2px solid rgba(0,0,0,0.55); padding: 0.20rem 0.55rem;
+      border-radius: 999px; background: transparent;
+    }
+    .nav-pdf {
+      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.10em;
+      text-transform: uppercase; color: rgba(0,0,0,0.75);
+      border: 2px solid rgba(0,0,0,0.55); padding: 0.20rem 0.65rem;
+      border-radius: 999px; background: transparent; border-bottom: 2px solid rgba(0,0,0,0.55) !important;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-pdf:hover { color: #000; border-color: rgba(0,0,0,0.95) !important; }
+
+    /* MAIN SECTION */
+    .section { padding: clamp(18px, 3vw, 34px) 0; }
+
+    /* BLOCK (outer card) */
+    .block {
+      border: 2px solid var(--stroke2); background: var(--panel);
+      border-radius: var(--radius); position: relative; overflow: hidden;
+      box-shadow: 0 8px 0 rgba(0,0,0,0.35);
+    }
+    .block .ticks { position: absolute; inset: 12px; pointer-events: none; opacity: 0.9; }
+    .block .ticks::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(var(--stroke2) 0 0) left top / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left top / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right top / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right top / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left bottom / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) left bottom / 2px 18px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right bottom / 18px 2px no-repeat,
+        linear-gradient(var(--stroke2) 0 0) right bottom / 2px 18px no-repeat;
+    }
+    .block::before, .block::after { content: none !important; }
+
+    /* BLOCK HEADER */
+    .blockhead {
+      border-bottom: 2px solid var(--stroke2); background: var(--panel2);
+      padding: 1.5rem 2rem 1.25rem;
+    }
+    .cv-name {
+      font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 950; letter-spacing: -0.02em;
+      line-height: 1.05; color: #000;
+    }
+    .cv-tagline {
+      font-size: 1.0rem; color: rgba(0,0,0,0.80); margin-top: 0.5rem;
+    }
+    .cv-contact {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem;
+      margin-top: 0.85rem; font-family: var(--mono); font-size: 0.82rem;
+      color: rgba(0,0,0,0.72); letter-spacing: 0.06em;
+    }
+    .cv-contact a { font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.06em; }
+
+    /* BLOCK BODY */
+    .blockbody { padding: 0 2rem 2rem; }
+
+    /* SECTION HEADER (Education, Projects, etc.) */
+    .cv-section {
+      margin-top: 2rem;
+    }
+    .cv-section-head {
+      display: flex; align-items: center; gap: 0.75rem;
+      border-bottom: 2px solid var(--stroke2); padding-bottom: 0.5rem; margin-bottom: 1.1rem;
+    }
+    .cv-section-head .kicker {
+      font-family: var(--mono); font-weight: 950; font-size: 0.78rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.78);
+    }
+    .cv-section-head .id {
+      font-family: var(--mono); font-size: 0.72rem; color: rgba(0,0,0,0.60);
+      border: 2px solid rgba(0,0,0,0.40); padding: 0.10rem 0.45rem;
+      border-radius: 999px; letter-spacing: 0.08em;
+    }
+
+    /* ENTRIES */
+    .entry { display: grid; gap: 0.55rem; margin-bottom: 1.25rem; }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-head {
+      display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: baseline;
+    }
+    .entry-title { font-weight: 850; font-size: 1.0rem; color: #000; }
+    .entry-title em { font-style: italic; font-weight: 500; }
+    .entry-date {
+      font-family: var(--mono); font-size: 0.78rem; color: rgba(0,0,0,0.62);
+      letter-spacing: 0.06em; white-space: nowrap;
+    }
+    .entry-sub {
+      font-size: 0.92rem; color: rgba(0,0,0,0.72);
+      font-family: var(--mono); letter-spacing: 0.03em;
+    }
+
+    /* BULLETS */
+    .entry ul {
+      list-style: none; display: grid; gap: 0.3rem; padding-left: 0;
+    }
+    .entry ul li {
+      font-size: 0.96rem; color: rgba(0,0,0,0.85);
+      padding-left: 1.1rem; position: relative;
+    }
+    .entry ul li::before {
+      content: "·"; position: absolute; left: 0.2rem;
+      color: rgba(0,0,0,0.55); font-weight: 900;
+    }
+
+    /* SKILLS TABLE */
+    .skills-grid { display: grid; gap: 0.55rem; }
+    .skill-row { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: baseline; }
+    .skill-label {
+      font-family: var(--mono); font-size: 0.78rem; font-weight: 950;
+      letter-spacing: 0.10em; text-transform: uppercase; color: rgba(0,0,0,0.78);
+      white-space: nowrap;
+      border: 2px solid rgba(0,0,0,0.40); padding: 0.10rem 0.5rem;
+      border-radius: 999px;
+    }
+    .skill-val { font-size: 0.94rem; color: rgba(0,0,0,0.85); }
+
+    /* PUBLICATIONS */
+    .pub-list { display: grid; gap: 0.75rem; list-style: none; counter-reset: pub-counter; }
+    .pub-list li {
+      font-size: 0.94rem; color: rgba(0,0,0,0.85);
+      padding-left: 1.8rem; position: relative;
+      counter-increment: pub-counter;
+    }
+    .pub-list li::before {
+      content: "[" counter(pub-counter) "]";
+      position: absolute; left: 0;
+      font-family: var(--mono); font-size: 0.76rem; color: rgba(0,0,0,0.55);
+      font-weight: 950;
+    }
+
+    /* DIVIDER between entries */
+    .entry + .entry { border-top: 1px solid rgba(0,0,0,0.18); padding-top: 1.1rem; }
+
+    /* FOOTER */
+    .footerband { border-top: 2px solid var(--stroke2); background: var(--panel2); padding: 1.25rem 0; }
+    .footergrid { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; }
+    .footer-left { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .footer-gif img {
+      max-width: 165px; border-radius: calc(var(--radius) - 2px);
+      border: 2px solid rgba(0,0,0,0.55); padding: 8px 10px; opacity: 0.92; transition: opacity 0.15s;
+    }
+    .footer-gif img:hover { opacity: 1; }
+    .copyright { font-family: var(--mono); color: rgba(0,0,0,0.70); font-size: 0.86rem; letter-spacing: 0.04em; margin-left: auto;}
+
+    @media (max-width: 700px) {
+      .entry-head { grid-template-columns: 1fr; }
+      .nav .inner { flex-direction: column; align-items: flex-start; }
+      .footergrid { grid-template-columns: 1fr; }
+      .skill-row { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker .row { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div class="datums"></div>
+
+  <!-- TICKER -->
+  <div class="band ticker" aria-hidden="true">
+    <div class="container">
+      <div class="row">
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN</span>
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="band nav">
+    <div class="container">
+      <div class="inner">
+        <div class="brand">
+          <a href="/" class="name" style="border-bottom:none;">Ian Snider</a>
+          <div class="tag">curriculum vitae</div>
+        </div>
+        <a href="/CV/Snider_Ian_CV.pdf" target="_blank" rel="noreferrer" class="nav-pdf">↓ PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="section">
+    <div class="container">
+      <div class="block">
+        <div class="ticks" aria-hidden="true"></div>
+
+        <!-- HEADER -->
+        <div class="blockhead">
+          <div class="cv-name">Ian Snider</div>
+          <div class="cv-tagline">Roboticist designing autonomous aerial vehicles for radiation mapping.</div>
+          <div class="cv-contact">
+            <a href="mailto:iqsnider@berkeley.edu">iqsnider@berkeley.edu</a>
+            <a href="https://iansnider.com" target="_blank" rel="noreferrer">iansnider.com</a>
+            <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">iqsnider</a>
+            <span>Berkeley, CA</span>
+          </div>
+        </div>
+
+        <div class="blockbody">
+
+          <!-- EDUCATION -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Education</span>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Ph.D. Nuclear Engineering</strong> — Robotics · University of California, Berkeley</div>
+                <div class="entry-date">Aug 2025 – present</div>
+              </div>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>B.S. Mechanical Engineering</strong> · Washington University in St. Louis</div>
+                <div class="entry-date">May 2025</div>
+              </div>
+              <div class="entry-sub">GPA 4.00 / 4.00</div>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>B.A. Physics</strong>, Math minor · Truman State University</div>
+                <div class="entry-date">Dec 2024</div>
+              </div>
+              <div class="entry-sub">GPA 3.89 / 4.00</div>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Projects</span>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Sniff Consensus Protocol for Noisy Multi-Agent Formations</strong> — Developer</em></div>
+                <div class="entry-date">Fall 2025</div>
+              </div>
+              <ul>
+                <li>Consensus protocol for a random graph of agents perturbed with communication noise</li>
+                <li>Used Erdos-Renyi graphs to generate adjacency matrices and applied communication noise with Random Matrix Theory</li>
+                <li>Used ROS2, Python, and Rust for design, simulations, and stability analysis</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>WashU Robotics MateROV &amp; MARINER Projects</strong> — Mechanical Lead</em></div>
+                <div class="entry-date">2023 – 2025</div>
+              </div>
+              <ul>
+                <li>Designed and tested an autonomous underwater vehicle (AUV)</li>
+                <li>Prototyped dive control using an IMU and depth state estimation with a Kalman Filter for 1D hovering</li>
+                <li>Used Arduino for programming AUV sensors and control system</li>
+                <li>Built a chassis and buoyancy engine</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>CrazyFlie 2.1 Cascaded PID/PD Control System</strong> — ESE 4481 Student</em></div>
+                <div class="entry-date">Spring 2025</div>
+              </div>
+              <ul>
+                <li>Designed a control system for a CrazyFlie 2.1 quadcopter and achieved stable hovering</li>
+                <li>Used Simulink and MATLAB for simulating the control system response and finding stability margins</li>
+                <li>Used C to program the quadcopter embedded system</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Experience</span>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Lawrence Berkeley National Laboratory</strong> — Lab Affiliate</em>, Berkeley, CA</div>
+                <div class="entry-date">Aug 2025 – present</div>
+              </div>
+              <ul>
+                <li>Studied slung-payload algorithms for a radiation detector tethered to an autonomous hexacopter</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Lawrence Livermore National Laboratory</strong> — Graduate Intern</em>, Livermore, CA</div>
+                <div class="entry-date">June 2025 – present</div>
+              </div>
+              <ul>
+                <li>Developed CRISP (CRItical Simulation Pipeline), a Python tool for parallelizing and distributing HPC jobs</li>
+                <li>Test driven Python development included Poetry, CI/CD, SQLite, MPI, CLI, feature branching, and Sphinx</li>
+                <li>Used 2 world-class LLNL HPC clusters Dane and Ruby with Slurm sbatch/srun scripts</li>
+                <li>CRISP successfully automated compilation and benchmarking workflows for ~3420 reactor simulation cases</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Brookhaven National Laboratory</strong> — Student Researcher</em>, Upton, NY</div>
+                <div class="entry-date">Summers 2022 – 2024</div>
+              </div>
+              <ul>
+                <li>Developed BRR (Bayesian Resonance Reclassifier) for reclassification tasks on HPC clusters</li>
+                <li>Applied machine learning using Scikit-learn to classify nuclear data</li>
+                <li>Used Random Matrix Theory for finding and scaling eigenvalues to build synthetic training sets</li>
+                <li>Used the transport code OpenMC and HPC clusters to parallel process sensitivity analyses for reactor models</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Truman State University</strong> — Student Astronomy Researcher</em>, Kirksville, MO</div>
+                <div class="entry-date">2021 – 2022</div>
+              </div>
+              <ul>
+                <li>Calculated trajectories for ~3000 Starlink satellites to optimize telescope viewing plans and developed a GUI</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SKILLS -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Skills</span>
+            </div>
+            <div class="skills-grid">
+              <div class="skill-row">
+                <span class="skill-label">Programming</span>
+                <span class="skill-val">C, C++, Python, Go, Bash, Lua, MATLAB, Mathematica, Octave, LaTeX, Typst, Vimscript</span>
+              </div>
+              <div class="skill-row">
+                <span class="skill-label">Software</span>
+                <span class="skill-val">Simulink, SolidWorks, OpenMC, COG, MCNP, PyTorch, Scikit-learn, Slurm, Git, Linux, Arduino</span>
+              </div>
+              <div class="skill-row">
+                <span class="skill-label">Physics</span>
+                <span class="skill-val">Autonomous Aerial Vehicle Control, Classical Mechanics, Electrodynamics, Electronics, Vibrations, Quantum Mechanics, Mathematical Physics, Nuclear Physics, Fluid Mechanics, Solid Mechanics, Acoustics, Materials Science, Thermal Systems, Criticality Safety, Radiobiology, Turbojets, Ramjets</span>
+              </div>
+              <div class="skill-row">
+                <span class="skill-label">Math</span>
+                <span class="skill-val">Linear Algebra, ODEs, Computing Structures, Control Systems, Machine Learning, Random Walks, Random Matrix Theory, Orthogonal Groups, Optimizations</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACTIVITIES -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Activities</span>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>WashU Robotics</strong> — Mechanical Lead</em></div>
+                <div class="entry-date">2020 – 2023</div>
+              </div>
+              <ul>
+                <li>Mechanical lead on the MateROV underwater robotics team</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>WashU Climbing</strong> — Member</em></div>
+                <div class="entry-date">2023 – 2025</div>
+              </div>
+              <ul>
+                <li>Indoor and outdoor bouldering and lead climbing</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Society of Physics Students</strong> — Demo Chair</em></div>
+                <div class="entry-date">2020 – 2023</div>
+              </div>
+              <ul>
+                <li>Developed 3 new physics demos, performed demos at meetings, and provided volunteer physics tutoring</li>
+                <li>Wrote and proctored exams for 2022 &amp; 2023 Science Olympiads ("Crave the Wave" and "Remote Sensing")</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PUBLICATIONS -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Technical Reports &amp; Abstracts</span>
+            </div>
+            <ol class="pub-list">
+              <li>G. Nobre et al., "Annual Report on NCSP Technical Support task in BNL during FY24," 2024. doi: <a href="https://doi.org/10.2172/2474826" target="_blank" rel="noreferrer">10.2172/2474826</a></li>
+              <li>I. Snider, G. Nobre, and D. Brown, "Resonance Capture Widths for the Bayesian Resonance Reclassifier," in APS Meeting Abstracts</em>, Jan. 2023, p. DB3.074. <a href="https://ui.adsabs.harvard.edu/abs/2023APS..HAWD03074S" target="_blank" rel="noreferrer">ADS link</a></li>
+              <li>I. Snider, G. Nobre, D. Brown, and W. Fritsch, "Accuracy Correlation in Neutron Resonance Reclassification," Bulletin of the American Physical Society</em>, vol. 67, 2022.</li>
+            </ol>
+          </div>
+
+          <!-- CONFERENCE PRESENTATIONS -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Conference Presentations</span>
+            </div>
+            <div class="entry">
+              <ul>
+                <li>Lawrence Livermore National Laboratory Student Research Conference. LLNL B511, Livermore, CA — August 7, 2025</li>
+                <li>Brookhaven National Laboratory Student Research Conference. BNL Bldg. 488, Upton, NY — August 9, 2024</li>
+                <li>American Physical Society – Division of Nuclear Physics &amp; Japan Physical Society joint fall meeting. Hilton Waikoloa Village, The Big Island, HI — Nov 27–Dec 1, 2023</li>
+                <li>Brookhaven National Laboratory Student Research Conference. BNL Bldg. 488, Upton, NY — August 10, 2023</li>
+                <li>Truman State University Student Research Conference. Kirksville, MO — April 21, 2023</li>
+                <li>American Physical Society – Division of Nuclear Physics fall meeting. Hyatt Regency Hotel, New Orleans, LA — October 29–31, 2022</li>
+                <li>Brookhaven National Laboratory Student Research Conference. BNL Bldg. 488, Upton, NY — August 11, 2022</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- HONORS -->
+          <div class="cv-section">
+            <div class="cv-section-head">
+              <span class="kicker">Honors</span>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Kenneth L. Jerina Prize for Outstanding Dual-Degree in Mechanical Engineering</strong> — WashU Engineering</div>
+                <div class="entry-date">April 2025</div>
+              </div>
+              <ul>
+                <li>Honored for academic achievements and engineering community contributions</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Conference Experience for Undergraduates 2023</strong> — APS DNP</div>
+                <div class="entry-date">September 2023</div>
+              </div>
+              <ul>
+                <li>Competitive research abstract award</li>
+                <li>Invitation to present a research poster at the APS DNP Fall 2023 conference on The Big Island, HI</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Conference Experience for Undergraduates 2022</strong> — APS DNP</div>
+                <div class="entry-date">August 2022</div>
+              </div>
+              <ul>
+                <li>Competitive research abstract award</li>
+                <li>Invitation to poster presentation at the APS DNP Fall 2022 meeting in New Orleans, LA</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="entry-head">
+                <div class="entry-title"><strong>Sigma Pi Sigma Honor Society</strong> — Truman State University</div>
+                <div class="entry-date">May 2022</div>
+              </div>
+              <ul>
+                <li>Recognized for service and academic scholarship in physics</li>
+              </ul>
+            </div>
+          </div>
+
+        </div><!-- /blockbody -->
+      </div><!-- /block -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footerband">
+    <div class="container">
+      <div class="footergrid">
+        <div class="footer-left">
+          <div class="footer-gif">
+            <img src="https://i.imgur.com/QkBkUkC.gif" alt="pixel animation" />
+          </div>
+          <span class="copyright">© Ian Snider</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

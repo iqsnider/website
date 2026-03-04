@@ -1,4 +1,4 @@
-#import "cv_functions.typ": lined_section
+#import "cv_functions_industry.typ": lined_section
 
 #lined_section("Technical Reports and Abstracts")
 

@@ -1,15 +1,12 @@
 #let lined_section(header) = [
-  *#upper(header)* #v(-0.9em) #line(length: 100%, stroke: 0.6pt)
+  *#upper(text(fill:blue)[#header])* #v(-0.9em) #line(length: 100%, stroke: 0.6pt + blue)
 ]
 
 // education
-#let education_field(school, location, graduation, degree, gpa) = [  *#school*, #emph(location) #h(1fr) #emph(graduation) \
-  #degree #h(1fr) #gpa
-]
+#let education_field(school, location, graduation, degree, gpa) = [*#degree* - #school #gpa #h(1fr) #emph(graduation)]
 
 // experience
-#let experience_field(institution, title, location, dates, supervisor, list_content) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #supervisor \
-  #list_content
+#let experience_field(institution, title, location, dates, list_content) = [*#institution - #emph(title)*, #emph(location) #h(1fr) #emph(dates) \ #list_content
 ]
 
 // activiites

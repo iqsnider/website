@@ -1,12 +1,11 @@
-#import "cv_functions.typ": lined_section
+#import "cv_functions_industry.typ": lined_section
 
 #lined_section("skills")
 
 #list(
-  [*Coding Languages:* Python, Go, C, C++, Bash, Lua, SQL, MATLAB, Mathematica, Octave, LaTeX, #link("https://github.com/typst/typst")[Typst], Vimscript],
-  [*Software:* Simulink, SolidWorks, OpenMC, COG (transport code), NJOY2016, Pytorch, Scikit-learn, Slurm, Git, Linux, Arduino, Microsoft Office],
-  [*Technical/Laboratory:* Technical Writing, Machining, Analog \& Digital Electronics, Robotics, Embedded Electronics, Computer Clusters],
-  [*Advanced physics/engineering coursework/lab experience:* Electricity \& Magnetism, Electronics, Classical Mechanics, Quantum Physics, Mathematical Physics, Vibrations, Nuclear Physics, Thermodynamics, Fluid Mechanics, Solid Mechanics, Heat Transfer, Acoustics, Materials Science, Thermal Systems, Aerospace Propulsion, Turbojets, Ramjets, Autonomous Aerial Vehicle Control, State Estimation, and Kalman Filtering],
-  [*Advanced mathematics coursework:* Linear Algebra, Ordinary Differential Equations, Computing Structures, Control Systems, Machine Learning, and Optimizations]
+  [*Programming:* C, C++, Python, Go, Bash, Lua,  MATLAB, Mathematica, Octave, LaTeX, Typst, Vimscript],
+  [*Software/Technical:* Simulink, SolidWorks, OpenMC, COG, MCNP, Pytorch, Scikit-learn, Slurm, Git, Linux, Arduino],
+  [*Physics/engineering:* Autonomous Aerial Vehicle Control, Classical Mechanics, Electrodynamics, Electronics, Vibrations, Quantum Mechanics, Mathematical Physics,  Nuclear Physics, Fluid Mechanics, Solid Mechanics, Acoustics, Materials Science, Thermal Systems, Criticality Safety, Radiobiology, Turbojets, Ramjets],
+  [*Math:* Linear Algebra, ODEs, Computing Structures, Control Systems, Machine Learning, Random Walks, Random Matrix Theory, Orthogonal Groups, and Optimizations]
 )
 
