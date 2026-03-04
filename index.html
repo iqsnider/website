@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ian Snider · nuclear robotics</title>
+  <title>Ian Snider</title>
   <link rel="icon" type="image/x-icon" href="/img/pixelated_tail.png" />
 
   <style>
@@ -46,6 +46,12 @@
       font-family: var(--sans);
       line-height: 1.55;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main{
+      flex:1;
     }
 
     a{
@@ -479,6 +485,7 @@
       color: rgba(0,0,0,0.70);
       font-size: 0.86rem;
       letter-spacing: 0.04em;
+      margin-left: auto;
     }
 
     /* =========================
@@ -554,7 +561,7 @@
             <div>
               <div class="kicker">
                 <span>PROFILE</span>
-                <span class="id">sheet A-01</span>
+                <span class="id" id="sheet-date"></span>
               </div>
               <h1 class="bigtitle">Robotics</h1>
             </div>
@@ -623,5 +630,15 @@
       </div>
     </div>
   </footer>
+<script>
+const now = new Date();
+
+const month = String(now.getUTCMonth() + 1).padStart(2,'0');
+const day = String(now.getUTCDate()).padStart(2,'0');
+const year = now.getUTCFullYear();
+
+document.getElementById("sheet-date").textContent =
+  `${month}-${day}-${year}`;
+</script>
 </body>
 </html>
