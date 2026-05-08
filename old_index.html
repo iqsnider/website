@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ian Snider</title>
+  <link rel="icon" type="image/x-icon" href="/img/pixelated_tail.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="backdrop"></div>
+  <div class="datums"></div>
+
+  <!-- TOP TICKER -->
+  <div class="band ticker" aria-hidden="true">
+    <div class="container">
+      <div class="row">
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN </span>
+        <span><b>ROBOTICS</b> <span class="dot">·</span> multicopters <span class="dot">·</span> radiation sensing</span>
+        <span><b>CONTROLS</b> <span class="dot">·</span> estimation <span class="dot">·</span> mapping <span class="dot">·</span> autonomy</span>
+        <span><b>BERKELEY</b> <span class="dot">·</span> LBNL <span class="dot">·</span> BARN </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY NAV -->
+  <div class="band nav">
+    <div class="container">
+      <div class="inner">
+        <div class="brand">
+          <div class="name">Ian Snider</div>
+          <div class="tag">radiation robotics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="section" id="about">
+    <div class="container">
+      <div class="grid">
+
+        <!-- CONNECTOR LINES -->
+        <div class="interconnects" aria-hidden="true">
+          <svg viewBox="0 0 1000 1100" preserveAspectRatio="none">
+            <path d="M 645 210 L 770 210 L 812 246 L 934 246"
+                  fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="4" stroke-linecap="round" />
+            <path d="M 922 540 L 922 795 L 650 795"
+                  fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="4" stroke-linecap="round" />
+            <g opacity="0.75">
+              <circle cx="934" cy="246" r="7" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
+              <circle cx="922" cy="540" r="8" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
+              <circle cx="650" cy="795" r="7" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.55)"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- LEFT: ABOUT -->
+        <section class="block">
+          <div class="ticks" aria-hidden="true"></div>
+
+          <div class="blockhead">
+            <div>
+              <div class="kicker">
+                <span>PROFILE</span>
+                <span class="id" id="sheet-date"></span>
+              </div>
+              <h1 class="bigtitle">Robotics</h1>
+            </div>
+          </div>
+
+          <div class="blockbody">
+            <div class="callout">
+              <p>
+                Hi, my name is Ian Snider. 
+		</p><p>I am a nuclear engineering PhD student at the
+                <span class="berkeley-highlight" title="Go Bears! 🐻">University of California, Berkeley</span>. I research multicopter systems for radiation mapping, controls, estimation, and autonomy.
+              </p>
+              <p>
+                Undergrad: Physics + Mechanical Engineering.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: LINKS -->
+        <aside class="tiles" id="links">
+          <div class="tile">
+            <div class="ticks" aria-hidden="true"></div>
+
+            <div class="top">
+              <span>Links</span>
+            </div>
+
+            <div class="links">
+              <a href="https://github.com/iqsnider" target="_blank" rel="noreferrer">GitHub</a>
+	      <a href="/CV">CV</a>
+              <a href="../files/Snider_Ian_ESE4481_Final.pdf" target="_blank" rel="noreferrer">A weird drone control system</a>
+              <a href="../files/Snider_Ian_ESE441_Case_Study.pdf" target="_blank" rel="noreferrer">Artificial Pancreas</a>
+            </div>
+          </div>
+
+          <div class="tile" id="contact">
+            <div class="ticks" aria-hidden="true"></div>
+
+            <div class="top">
+              <span>Contact</span>
+            </div>
+
+            <div class="links">
+              <a href="mailto:iqsnider@berkeley.edu?subject=Project%20inquiry&body=Hello%20Ian,">
+                iqsnider@berkeley.edu
+              </a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footerband">
+    <div class="container">
+      <div class="footergrid">
+        <div class="footer-left">
+          <div class="footer-gif">
+            <img src="https://i.imgur.com/QkBkUkC.gif" alt="pixel animation" />
+          </div>
+          <a href="typing.html" class="typing-link">typing test</a>
+          <span class="copyright">© Ian Snider</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const now = new Date();
+
+    const month = now.getUTCMonth() + 1;
+    const day = now.getUTCDate();
+    const year = now.getUTCFullYear();
+
+    const formatted = `${month}-${day}-${year}`;
+
+    document.getElementById("sheet-date").textContent = formatted;
+  </script>
+</body>
+</html>

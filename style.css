@@ -518,6 +518,7 @@ a[href^="mailto"]:hover{
   max-width: 980px;
   margin: 0 auto;
   padding: 0 var(--pad);
+  font-family: "Source Sans Pro";
 }
 
 /* CV blockhead has different padding/layout from main site */
@@ -599,7 +600,7 @@ a[href^="mailto"]:hover{
 .entry-title{
   font-weight: 850;
   font-size: 1.0rem;
-  color: #f5f0e8;
+  color: var(--orange);
 }
 .entry-title em{ font-style: italic; font-weight: 500; }
 
