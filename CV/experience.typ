@@ -5,7 +5,6 @@
 // #experience_field("Lawrence Berkeley National Laboratory", "Lab Affiliate", "Berkeley, CA", "Aug 2025 - present", list([Developed a Monte Carlo simulation to optimize sensor timing cycles for event coincidence detection],[Studied primary gamma extraction from the Oslo Matrix]))
 
 #experience_field("Lawrence Berkeley National Laboratory", "Lab Affiliate", "Berkeley, CA", "Aug 2025 - present", list([Developed a method for a hexacopter to control the trajectory of a tether-suspended radiation detector]))
-  [The fully autonomous system reduced data loss due to human pilots by 50% for radioactive contamination mapping missions]))
 #experience_field("Lawrence Livermore National Laboratory", "Graduate Intern", "Livermore, CA", "June 2025 - present", list(
   [Developed CRISP (CRItical Simulation Pipeline), a Python tool for distributing high-performance computing (HPC) jobs],
 [Test driven Python development included Poetry, CI/CD, SQLite, MPI, CLI, feature branching, and Sphinx],[Used 2 world-class LLNL HPC clusters #link("https://hpc.llnl.gov/hardware/compute-platforms/dane")[Dane] and #link("https://hpc.llnl.gov/hardware/compute-platforms/ruby%E2%80%94decommissioned")[Ruby] with Slurm sbatch/srun scripts],
