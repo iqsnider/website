@@ -6,8 +6,8 @@
 #show link: underline
 #include "title.typ"
 #include "education.typ"
-#include "projects.typ"
 #include "experience.typ"
+#include "projects.typ"
 #include "skills.typ"
 #include "activities.typ"
 #include "publications.typ"
