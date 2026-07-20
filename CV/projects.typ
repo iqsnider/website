@@ -2,7 +2,9 @@
 
 #lined_section("Projects")
 
-#activity_field(text[Sniff #link("https://github.com/iqsnider/sniff")[Consensus Protocol for Noisy Multi-Agent Formations]], position: "Developer", "Fall 2025", list_content : list([Consensus protocol for a random graph of agents perturbed with communication noise],[Used Erdos-Renyi graphs to generate adjacency matrices and applied communication noise with Random Matrix Theory],[Used ROS2, Python, and Rust, for design, simulations, and stability analysis]))
+#activity_field(text[Sniff #link("https://github.com/iqsnider/sniff")[Consensus Protocol for Noisy Multi-Agent Formations]], position: "Developer", "Fall 2025", list_content : list([Consensus protocol for a random graph of agents perturbed with communication noise],[Used Erdos-Renyi graphs to generate adjacency matrices and applied communication noise with Random Matrix Theory],
+  // [Used ROS2, Python, and Rust, for design, simulations, and stability analysis]
+))
 
 #activity_field(text[WashU Robotics #link("https://github.com/washu-robotics/MATEROV")[MateROV] & #link("https://github.com/iqsnider/MARINER/tree/master/control/Float")[MARINER] Projects], "2023 - 2025", position: "Mechanical Lead", list_content : list([Designed and tested an autonomous underwater vehicle (AUV)],[Prototyped dive control using an IMU and depth state estimation with a Kalman Filter for 1D hovering],[Used Arduino for programming AUV sensors and control system],[Built a chassis and buoyancy engine]))
 
