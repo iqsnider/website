@@ -2,7 +2,7 @@
 
 #lined_section("Projects")
 
-#activity_field(text[TARES #link("")[Tethered Aerial Radiation Estimation System]], position: "Researcher", "Jan 2026 - present", list_content : list(
+#activity_field(text[TARES #link("https://doi.org/10.48550/arXiv.2609.27219")[Tethered Aerial Radiation Estimation System]], position: "Researcher", "Jan 2026 - present", list_content : list(
 
   [Designed a UAV system for controlling the trajectory of a tether-suspended payload],
   [Flew autonomous tests at Richmond Field Station and Lawrence-Berkeley under Part 107 regulations]
