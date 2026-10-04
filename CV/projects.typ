@@ -11,7 +11,7 @@
 
 #activity_field(text[Sniff #link("https://github.com/iqsnider/sniff")[Consensus Protocol for Noisy Multi-Agent Formations]], position: "Developer", "Fall 2025", list_content : list(
   [Designed a consensus protocol for multi-agent formations on random graphs with noisy communication],
-  [Simulated Erdős--Rényi agent graphs and analyzed stability using ROS2 and Python]
+  [Simulated Erdos-Renyi agent graphs and analyzed stability using Python]
 ))
 
 #activity_field(text[WashU Robotics #link("https://github.com/washu-robotics/MATEROV")[MATE ROV] & #link("https://github.com/iqsnider/MARINER/tree/master/control/Float")[MARINER] Projects], "2023 - 2025", position: "Mechanical Lead", list_content : list([Designed and tested an autonomous underwater vehicle (AUV)],[Prototyped 1D hovering dive control using IMU and depth state estimation with a Kalman filter],[Built a chassis and buoyancy engine]))
